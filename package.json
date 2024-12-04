@@ -7,11 +7,14 @@
     "check": "biome check --write",
     "dev": "rsbuild dev --open",
     "format": "biome format --write",
-    "preview": "rsbuild preview"
+    "preview": "rsbuild preview",
+    "lint": "biome lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.3.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-redux": "^9.1.2"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.3",
