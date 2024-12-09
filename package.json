@@ -11,6 +11,8 @@
     "lint": "biome lint"
   },
   "dependencies": {
+    "@festo-ui/react": "^7.1.0",
+    "@festo-ui/web-essentials": "^7.1.0",
     "@reduxjs/toolkit": "^2.3.0",
     "i18next": "^24.0.5",
     "i18next-browser-languagedetector": "^8.0.0",
