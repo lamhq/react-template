@@ -8,7 +8,9 @@
     "dev": "rsbuild dev --open",
     "format": "biome format --write",
     "preview": "rsbuild preview",
-    "lint": "biome lint"
+    "lint": "biome lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@festo-ui/react": "^7.1.0",
@@ -26,11 +28,20 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.3",
+    "@chromatic-com/storybook": "^3.2.2",
     "@rsbuild/core": "^1.1.4",
     "@rsbuild/plugin-react": "^1.0.7",
     "@rsbuild/plugin-typed-css-modules": "^1.0.2",
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-interactions": "^8.4.7",
+    "@storybook/addon-onboarding": "^8.4.7",
+    "@storybook/blocks": "^8.4.7",
+    "@storybook/react": "^8.4.7",
+    "@storybook/test": "^8.4.7",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "storybook": "^8.4.7",
+    "storybook-react-rsbuild": "^0.1.5",
     "typescript": "^5.7.2"
   }
 }
