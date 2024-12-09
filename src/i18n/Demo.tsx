@@ -1,5 +1,5 @@
-import { useTranslation } from "react-i18next";
-import styles from './Demo.module.css'
+import { useTranslation } from 'react-i18next';
+import styles from './Demo.module.css';
 
 export default function Demo() {
   const { t } = useTranslation();
@@ -8,4 +8,4 @@ export default function Demo() {
       <p>{t('good morning')}</p>
     </div>
   );
-};
+}
