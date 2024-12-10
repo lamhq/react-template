@@ -14,8 +14,7 @@
   "javascript": {
     "formatter": {
       "quoteStyle": "single",
-      "indentStyle": "space",
-      "lineWidth": 100
+      "indentStyle": "space"
     }
   },
   "css": {
@@ -32,7 +31,8 @@
       },
       "style": {
         "noDefaultExport": "off",
-        "useFilenamingConvention": "off"
+        "useFilenamingConvention": "off",
+        "noImplicitBoolean": "off"
       },
       "suspicious": {
         "noReactSpecificProps": "off"

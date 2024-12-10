@@ -3,14 +3,14 @@ import '@festo-ui/react/index.css';
 import React from 'react';
 import reactDom from 'react-dom/client';
 
-import CadSelPopup from './CadSelPopup/CadSelPopup';
+import App from './App';
 
 const rootEl = document.getElementById('root');
 if (rootEl) {
   const root = reactDom.createRoot(rootEl);
   root.render(
     <React.StrictMode>
-      <CadSelPopup />
+      <App />
     </React.StrictMode>,
   );
 }
