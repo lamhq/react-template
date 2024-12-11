@@ -1,0 +1,8 @@
+@import '@festo-ui/web-essentials/scss/variables';
+
+.cs-btn-group {
+  gap: $spacer-s;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}

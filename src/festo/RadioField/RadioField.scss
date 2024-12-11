@@ -2,13 +2,13 @@
 
 .cs-radio-field {
   .fwe-radio {
-    margin-bottom: 11px;
+    margin-bottom: $spacer-xs;
     white-space: normal;
     align-items: flex-start;
   }
 
   .fwe-radio-checkmark {
-    margin-top: 5px;
+    margin-top: $spacer-xxxs;
     flex: 0 0 auto;
   }
 }

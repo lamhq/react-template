@@ -3,28 +3,28 @@ import '@festo-ui/web-essentials/dist/css/festo-web-essentials.min.css';
 import '@festo-ui/react/index.css';
 
 const customViewports = {
-  xl: {
+  xxl: {
     name: '1920',
     styles: {
       width: '1920px',
       height: '1080px',
     },
   },
-  l: {
+  xl: {
     name: '1440',
     styles: {
       width: '1440px',
       height: '800px',
     },
   },
-  m: {
+  md: {
     name: '1024',
     styles: {
       width: '1024px',
       height: '768px',
     },
   },
-  s: {
+  sm: {
     name: '768',
     styles: {
       width: '768px',
@@ -32,6 +32,13 @@ const customViewports = {
     },
   },
   xs: {
+    name: '600',
+    styles: {
+      width: '600px',
+      height: '667px',
+    },
+  },
+  xxs: {
     name: '375',
     styles: {
       width: '375px',

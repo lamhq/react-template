@@ -4,7 +4,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import CadSelPopup from './CadSelPopup';
 
 const meta: Meta<typeof CadSelPopup> = {
-  title: 'CadSelPopup',
   component: CadSelPopup,
 };
 export default meta;

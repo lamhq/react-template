@@ -1,14 +1,22 @@
+@import '@festo-ui/web-essentials/scss/variables';
+
 .cs-metadata {
-    th,
-    td {
-      vertical-align: top;
-    }
-  
-    th {
-      min-width: 146px;
-      text-align: left;
-    }
-  
-    margin-bottom: 28px;
+
+  th,
+  td {
+    vertical-align: top;
   }
-  
+
+  th {
+    min-width: auto;
+    text-align: left;
+  }
+
+  margin-bottom: $spacer-m;
+}
+
+@media (min-width: $grid-breakpoint-xs) {
+  .cs-metadata th {
+    min-width: 146px;
+  }
+}

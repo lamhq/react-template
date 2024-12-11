@@ -1,6 +1,6 @@
 import { defineConfig } from '@rsbuild/core';
 import { pluginReact } from '@rsbuild/plugin-react';
-import { pluginTypedCSSModules } from '@rsbuild/plugin-typed-css-modules';
+import { pluginSass } from '@rsbuild/plugin-sass';
 
 export default defineConfig({
   source: {
@@ -8,5 +8,5 @@ export default defineConfig({
       index: './src/festo/index.tsx',
     },
   },
-  plugins: [pluginReact(), pluginTypedCSSModules()],
+  plugins: [pluginReact(), pluginSass()],
 });
