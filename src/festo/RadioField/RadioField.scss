@@ -1,0 +1,19 @@
+@import '@festo-ui/web-essentials/scss/variables';
+
+.cs-radio-field {
+  .fwe-radio {
+    margin-bottom: 11px;
+    white-space: normal;
+    align-items: flex-start;
+  }
+
+  .fwe-radio-checkmark {
+    margin-top: 5px;
+    flex: 0 0 auto;
+  }
+}
+
+.cs-radio-field-label {
+  font-size: $font-size-base;
+  font-weight: $font-weight-bold;
+}

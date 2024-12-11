@@ -1,0 +1,50 @@
+.cs-popup {
+  .fwe-modal-body {
+    margin-bottom: 0;
+  }
+}
+
+.cs-tab {
+  // disable padding in tab nav items
+  .fr-tab-scroller-scroll-content {
+    padding: 0 !important;
+  }
+
+  // left align tab nav item's text
+  .fr-tab {
+    justify-content: flex-start;
+  }
+  
+  // disable padding in tab content
+  .fr-tab-panel-content {
+    padding: 0;
+  }
+}
+
+.cs-btn-group {
+  column-gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .fr-modal {
+    max-width: 696px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .fr-modal {
+    max-width: 912px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .fr-modal {
+    max-width: 1320px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .fr-modal {
+    max-width: 1800px;
+  }
+}
