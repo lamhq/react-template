@@ -1,11 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import styles from './Demo.module.css';
 
 export default function App() {
   const { t } = useTranslation();
   return (
-    <div className={styles.content}>
-      <p>{t('good morning')}</p>
+    <div className="flex min-h-screen leading-snug text-center flex-col justify-center">
+      <p className="text-lg font-normal opacity-50">{t('good morning')}</p>
     </div>
   );
 }
