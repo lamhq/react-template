@@ -5,7 +5,7 @@ import { pluginSass } from '@rsbuild/plugin-sass';
 export default defineConfig({
   source: {
     entry: {
-      index: './src/festo/index.tsx',
+      index: './src/rtk-query/index.tsx',
     },
   },
   plugins: [pluginReact(), pluginSass()],
