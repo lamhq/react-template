@@ -7,7 +7,7 @@ import React from 'react';
 import reactDom from 'react-dom/client';
 import { initReactI18next } from 'react-i18next';
 
-import Demo from './Demo';
+import App from './App';
 
 i18n
   .use(ChainedBackend)
@@ -44,7 +44,7 @@ if (rootEl) {
   const root = reactDom.createRoot(rootEl);
   root.render(
     <React.StrictMode>
-      <Demo />
+      <App />
     </React.StrictMode>,
   );
 }

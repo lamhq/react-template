@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import styles from './Demo.module.css';
 
-export default function Demo() {
+export default function App() {
   const { t } = useTranslation();
   return (
     <div className={styles.content}>
