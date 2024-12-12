@@ -4,7 +4,7 @@ import { pluginReact } from '@rsbuild/plugin-react';
 export default defineConfig({
   source: {
     entry: {
-      index: './src/i18n/index.tsx',
+      index: './src/state/index.tsx',
     },
   },
   plugins: [pluginReact()],

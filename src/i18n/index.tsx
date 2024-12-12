@@ -8,8 +8,8 @@ import HttpBackend from 'i18next-http-backend';
 import LocalStorageBackend from 'i18next-localstorage-backend';
 import { initReactI18next } from 'react-i18next';
 
-import App from './App';
 import './index.css';
+import App from './App';
 
 i18n
   .use(ChainedBackend)
