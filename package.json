@@ -13,10 +13,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@festo-ui/react": "^7.2.0",
-    "@festo-ui/web-essentials": "^7.2.0",
     "@reduxjs/toolkit": "^2.5.0",
-    "classnames": "^2.5.1",
     "i18next": "^24.1.0",
     "i18next-browser-languagedetector": "^8.0.2",
     "i18next-chained-backend": "^4.6.2",
@@ -32,7 +29,6 @@
     "@chromatic-com/storybook": "^3.2.2",
     "@rsbuild/core": "^1.1.9",
     "@rsbuild/plugin-react": "^1.1.0",
-    "@rsbuild/plugin-sass": "^1.1.2",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",
     "@storybook/blocks": "^8.4.7",
