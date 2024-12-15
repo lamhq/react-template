@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rsbuild build",
     "check": "biome check --write",
-    "dev": "rsbuild dev --open --port 3030",
+    "dev": "rsbuild dev --port 3030",
     "format": "biome format --write",
     "preview": "rsbuild preview",
     "lint": "biome lint",

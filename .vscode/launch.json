@@ -5,12 +5,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "chrome",
-      "request": "attach",
-      "name": "Attach Chrome against localhost",
-      "url": "http://localhost:8080",
-      "preLaunchTask": "npm: dev",
-      "webRoot": "${workspaceFolder}"
+      "type": "msedge",
+      "name": "Launch and debug with Edge",
+      "request": "launch",
+      "url": "http://localhost:3030",
+      "preLaunchTask": "npm: dev"
     }
   ]
 }

@@ -4,9 +4,19 @@
     {
       "type": "npm",
       "script": "dev",
-      "problemMatcher": [],
       "label": "npm: dev",
-      "detail": "rsbuild dev --open"
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "rsbuild-dev",
+        "pattern": {
+          "regexp": ".*?build failed.*$"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "start\\s+Building.*$",
+          "endsPattern": "ready\\s+Built in.*$"
+        }
+      }
     }
   ]
 }
