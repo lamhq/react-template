@@ -5,8 +5,8 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "msedge",
-      "name": "Launch and debug with Edge",
+      "type": "chrome",
+      "name": "Launch and debug with Chrome",
       "request": "launch",
       "url": "http://localhost:3030",
       "preLaunchTask": "npm: dev"

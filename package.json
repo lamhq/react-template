@@ -1,5 +1,7 @@
 {
-  "name": "rsbuild-react-ts",
+  "name": "react-template",
+  "description": "Starter code for React SPA",
+  "packageManager": "pnpm@9.15.1",
   "private": true,
   "version": "1.0.0",
   "scripts": {
