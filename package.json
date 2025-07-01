@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "prepare": "node .husky/install.mjs"
   },
   "dependencies": {
     "react": "^19.1.0",
@@ -36,6 +37,7 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "eslint-plugin-storybook": "^9.0.14",
     "globals": "^16.2.0",
+    "husky": "^9.1.7",
     "msw": "^2.10.2",
     "msw-storybook-addon": "^2.0.5",
     "playwright": "^1.53.2",
@@ -51,5 +53,8 @@
     "workerDirectory": [
       "public"
     ]
+  },
+  "lint-staged": {
+    "*.ts": "eslint --fix"
   }
 }
