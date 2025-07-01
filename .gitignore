@@ -16,7 +16,6 @@ pnpm-debug.log*
 
 # editor directories and files
 .idea
-.vscode
 *.sublime-project
 *.sublime-workspace
 
@@ -25,3 +24,5 @@ pnpm-debug.log*
 
 # build cache
 .vite
+*storybook.log
+storybook-static
