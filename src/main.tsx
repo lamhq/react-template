@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 
 import App from './App.tsx';
+import { AuthProvider } from './auth-state';
 import { LayoutProvider } from './templates/MainLayout';
 
 const queryClient = new QueryClient();
@@ -16,7 +17,9 @@ createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
           <LayoutProvider>
-            <App />
+            <AuthProvider>
+              <App />
+            </AuthProvider>
           </LayoutProvider>
         </QueryClientProvider>
       </BrowserRouter>

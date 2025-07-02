@@ -1,10 +1,8 @@
 import { NavLink } from 'react-router';
 
-import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import Box from '@mui/joy/Box';
 import Divider from '@mui/joy/Divider';
 import GlobalStyles from '@mui/joy/GlobalStyles';
-import IconButton from '@mui/joy/IconButton';
 import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
 import ListItemButton, { listItemButtonClasses } from '@mui/joy/ListItemButton';
@@ -12,6 +10,7 @@ import ListItemContent from '@mui/joy/ListItemContent';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
 import ColorSchemeToggle from './ColorSchemeToggle';
+import SignOutButton from './SignOutButton';
 import type { MenuItem } from './types';
 import { closeSidebar } from './utils';
 
@@ -128,9 +127,7 @@ export default function Sidebar({ menuItems }: SidebarProps) {
       <Divider />
 
       <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <IconButton size="sm" variant="plain" color="neutral">
-          <LogoutRoundedIcon />
-        </IconButton>
+        <SignOutButton />
       </Box>
     </Sheet>
   );
