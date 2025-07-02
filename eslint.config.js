@@ -25,6 +25,10 @@ export default tseslint.config(
         ecmaVersion: 2020,
         globals: globals.browser,
       },
+      rules: {
+        // use `type` instead of `interface`
+        '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+      },
     },
   ],
   storybook.configs['flat/recommended'],
