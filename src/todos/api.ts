@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { withErrorHandling } from '../error';
 
 // Types matching the OpenAPI spec
 export type Todo = {
@@ -24,10 +25,20 @@ export async function createTodo(data: CreateTodoDto): Promise<Todo> {
   return response.data;
 }
 
-// Get all todos
-export async function getTodos(): Promise<Todo[]> {
-  const response = await axios.get<Todo[]>('/api/todos');
-  return response.data;
+// Get todos (paginated)
+export async function getTodos(page: number, limit = 10): Promise<[Todo[], number]> {
+  const offset = (page - 1) * limit;
+
+  return withErrorHandling(async () => {
+    const response = await axios.get<Todo[]>('/api/todos', {
+      params: { offset, limit },
+    });
+
+    const value = response.headers['x-total-count'];
+    const total = typeof value === 'string' ? parseInt(value, 10) : 0;
+    const pageCount = Math.ceil(total / limit);
+    return [response.data, pageCount];
+  }, 'Failed to get todos');
 }
 
 // Update a todo by ID
