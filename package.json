@@ -16,13 +16,15 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
+    "@hookform/resolvers": "^5.1.1",
     "@mui/icons-material": "^7.2.0",
     "@mui/joy": "5.0.0-beta.52",
     "@tanstack/react-query": "^5.81.5",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.59.0",
-    "react-router": "^7.6.3"
+    "react-router": "^7.6.3",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.0.1",
