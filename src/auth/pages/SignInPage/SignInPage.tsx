@@ -2,10 +2,10 @@ import { useMutation } from '@tanstack/react-query';
 import { useCallback } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router';
-// import toast from 'react-hot-toast';
 
 import { Sheet, Typography } from '@mui/joy';
 import { useSignIn } from '../../../auth-state';
+import { useNotification } from '../../../notification';
 import { HOME_ROUTE } from '../../../routes';
 import { signInMutation, type SignInResponse } from '../../api';
 import SignInForm, { type SignInFormData } from '../../organisms/SignInForm';
@@ -18,6 +18,7 @@ const defaultValues: SignInFormData = {
 
 export default function SignInPage() {
   const navigate = useNavigate();
+  const { showSuccess, showError } = useNotification();
   const authenticate = useSignIn<User>();
   const { mutate: signIn, isPending } = useMutation<
     SignInResponse,
@@ -26,13 +27,12 @@ export default function SignInPage() {
   >({
     mutationFn: signInMutation,
     onSuccess: (data) => {
-      // toast.success('Successfully signed in!');
+      showSuccess('Successfully signed in!');
       authenticate(data);
       void navigate(HOME_ROUTE);
     },
     onError: (error: Error) => {
-      console.error(error);
-      // toast.error(error.message);
+      showError(error.message);
     },
   });
 
