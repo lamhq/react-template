@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router';
 
 import App from './App.tsx';
 import { AuthProvider } from './auth-state';
+import { NotificationProvider } from './notification';
 import { LayoutProvider } from './templates/MainLayout';
 
 const queryClient = new QueryClient();
@@ -18,7 +19,9 @@ createRoot(document.getElementById('root')!).render(
         <QueryClientProvider client={queryClient}>
           <LayoutProvider>
             <AuthProvider>
-              <App />
+              <NotificationProvider>
+                <App />
+              </NotificationProvider>
             </AuthProvider>
           </LayoutProvider>
         </QueryClientProvider>
