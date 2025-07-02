@@ -1,58 +1,21 @@
-import DeleteIcon from '@mui/icons-material/Delete';
-import Checkbox from '@mui/joy/Checkbox';
-import IconButton from '@mui/joy/IconButton';
-import List from '@mui/joy/List';
-import ListItem from '@mui/joy/ListItem';
-import Typography from '@mui/joy/Typography';
+import { useQuery } from '@tanstack/react-query';
+import { getTodos, type Todo } from '../../api';
+import TodoListView from '../../molecules/TodoList/TodoList';
 
-type Todo = {
-  id: number;
-  text: string;
-  completed: boolean;
-};
+export default function TodoList() {
+  const {
+    data: todos = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery<Todo[], Error>({
+    queryKey: ['todos'],
+    queryFn: getTodos,
+  });
 
-type TodoListProps = {
-  todos: Todo[];
-  onToggleTodo: (id: number) => void;
-  onDeleteTodo: (id: number) => void;
-};
+  if (isLoading) return <div>Loading...</div>;
 
-export default function TodoList({
-  todos,
-  onToggleTodo,
-  onDeleteTodo,
-}: TodoListProps) {
-  return (
-    <List>
-      {todos.map((todo) => (
-        <ListItem
-          key={todo.id}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: 1,
-          }}
-        >
-          <Checkbox
-            checked={todo.completed}
-            onChange={() => onToggleTodo(todo.id)}
-            sx={{ mr: 1 }}
-          />
-          <Typography
-            sx={{
-              textDecoration: todo.completed ? 'line-through' : 'none',
-              flex: 1,
-              color: todo.completed ? 'text.tertiary' : undefined,
-            }}
-          >
-            {todo.text}
-          </Typography>
-          <IconButton color="danger" onClick={() => onDeleteTodo(todo.id)}>
-            <DeleteIcon />
-          </IconButton>
-        </ListItem>
-      ))}
-    </List>
-  );
+  if (isError) return <div>Error: {error?.message}</div>;
+
+  return <TodoListView todos={todos} />;
 }
