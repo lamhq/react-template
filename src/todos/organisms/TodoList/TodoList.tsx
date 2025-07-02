@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import Pagination, { type PaginationProps } from '../../../common/atoms/Pagination';
+import Pagination, {
+  type PaginationProps,
+} from '../../../common/molecules/Pagination';
 import { getTodos, type Todo } from '../../api';
 import TodoListView from '../../molecules/TodoList/TodoList';
 
