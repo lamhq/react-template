@@ -47,7 +47,6 @@ function MockProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 const mockSignInMutation = signInMutation as jest.Mock<typeof signInMutation>;
 
 describe('SignInPage', () => {

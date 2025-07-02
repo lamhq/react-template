@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 
 import App from './App.tsx';
-import { AuthProvider } from './auth/index.ts';
+import { AuthProvider } from './auth-state';
 import { LayoutProvider } from './templates/MainLayout';
 
 const queryClient = new QueryClient();

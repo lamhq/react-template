@@ -3,9 +3,9 @@ import { Route, Routes } from 'react-router';
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
-import { requireAuth } from './auth';
+import { requireAuth } from './auth-state';
+import SignInPage from './auth/pages/SignInPage';
 import HomePage from './pages/HomePage';
-import SignInPage from './pages/SignInPage';
 import { SIGN_IN_ROUTE } from './routes';
 import MainLayout, { type MenuItem } from './templates/MainLayout';
 
