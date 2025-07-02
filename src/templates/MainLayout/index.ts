@@ -1,2 +1,4 @@
+export { useSetBreadcrumbs } from './hooks';
 export { default } from './MainLayout';
-export type { MenuItem } from './types';
+export { LayoutProvider } from './Provider';
+export type { BreadcrumbItem, MenuItem } from './types';

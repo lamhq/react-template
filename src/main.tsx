@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 
 import App from './App.tsx';
+import { LayoutProvider } from './templates/MainLayout';
 
 const queryClient = new QueryClient();
 
@@ -14,7 +15,9 @@ createRoot(document.getElementById('root')!).render(
       <CssBaseline />
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <App />
+          <LayoutProvider>
+            <App />
+          </LayoutProvider>
         </QueryClientProvider>
       </BrowserRouter>
     </CssVarsProvider>

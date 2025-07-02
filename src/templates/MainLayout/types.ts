@@ -3,3 +3,8 @@ export type MenuItem = {
   label: string;
   icon: React.ComponentType;
 };
+
+export type BreadcrumbItem = {
+  path: string;
+  label: string;
+};

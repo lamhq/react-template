@@ -8,6 +8,7 @@ import Link from '@mui/joy/Link';
 import Typography from '@mui/joy/Typography';
 import Header from './Header';
 import Sidebar from './Sidebar';
+import { useBreadcrumbs } from './hooks';
 import type { MenuItem } from './types';
 
 export type MainLayoutProps = {
@@ -15,11 +16,12 @@ export type MainLayoutProps = {
 };
 
 export default function MainLayout({ menuItems }: MainLayoutProps) {
+  // Find current menu item for title
   const location = useLocation();
+  const curMenuItem = menuItems.find((item) => item.path === location.pathname);
 
-  // Find current menu item for breadcrumbs and title
-  const currentMenuItem =
-    menuItems.find((item) => item.path === location.pathname) || menuItems[0];
+  // Get breadcrumbs items
+  const bcItems = useBreadcrumbs();
 
   return (
     <Box sx={{ display: 'flex', minHeight: '100dvh' }}>
@@ -45,42 +47,49 @@ export default function MainLayout({ menuItems }: MainLayoutProps) {
           gap: 1,
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Breadcrumbs
-            size="sm"
-            aria-label="breadcrumbs"
-            separator={<ChevronRightRoundedIcon fontSize="small" />}
-            sx={{ pl: 0 }}
-          >
-            <Link underline="none" color="neutral" href="/" aria-label="Home">
-              <HomeRoundedIcon />
-            </Link>
-            <Link
-              underline="hover"
-              color="neutral"
-              href={currentMenuItem.path}
-              sx={{ fontSize: 12, fontWeight: 500 }}
+        {bcItems.length > 0 && (
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Breadcrumbs
+              size="sm"
+              aria-label="breadcrumbs"
+              separator={<ChevronRightRoundedIcon fontSize="small" />}
+              sx={{ pl: 0 }}
             >
-              {currentMenuItem.label}
-            </Link>
-          </Breadcrumbs>
-        </Box>
+              <Link underline="none" color="neutral" href="/" aria-label="Home">
+                <HomeRoundedIcon />
+              </Link>
+              {bcItems.map((item, index) => (
+                <Link
+                  key={index}
+                  underline="hover"
+                  color="neutral"
+                  href={item.path}
+                  sx={{ fontSize: 12, fontWeight: 500 }}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </Breadcrumbs>
+          </Box>
+        )}
 
-        <Box
-          sx={{
-            display: 'flex',
-            mb: 1,
-            gap: 1,
-            flexDirection: { xs: 'column', sm: 'row' },
-            alignItems: { xs: 'start', sm: 'center' },
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Typography level="h2" component="h1">
-            {currentMenuItem.label}
-          </Typography>
-        </Box>
+        {curMenuItem && (
+          <Box
+            sx={{
+              display: 'flex',
+              mb: 1,
+              gap: 1,
+              flexDirection: { xs: 'column', sm: 'row' },
+              alignItems: { xs: 'start', sm: 'center' },
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Typography level="h2" component="h1">
+              {curMenuItem.label}
+            </Typography>
+          </Box>
+        )}
 
         <Outlet />
       </Box>
