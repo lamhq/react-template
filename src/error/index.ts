@@ -1,11 +1,18 @@
-import axios from 'axios';
+import { AUTH_UNAUTHENTICATED_EVENT } from '../auth-state';
 
 export type ApiError = {
   message: string;
+  response?: {
+    status: number;
+  };
 };
 
 export function isApiError(error: unknown): error is ApiError {
   return typeof error === 'object' && error !== null && 'message' in error;
+}
+
+export function isUnauthenticatedError(error: unknown): boolean {
+  return isApiError(error) && error.response?.status === 401;
 }
 
 export async function withErrorHandling<T>(
@@ -15,13 +22,11 @@ export async function withErrorHandling<T>(
   try {
     return await apiCall();
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      if (error.response?.status === 401) {
-        // clear authentication state when response status code is 401
-        window.dispatchEvent(new CustomEvent('auth:signout', { bubbles: false }));
-      }
+    // dispatch event to auth module
+    if (isUnauthenticatedError(error)) {
+      window.dispatchEvent(new CustomEvent(AUTH_UNAUTHENTICATED_EVENT));
     }
-    console.error(error);
+
     throw new Error(errorMessage);
   }
 }

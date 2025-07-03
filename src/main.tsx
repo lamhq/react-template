@@ -5,7 +5,6 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 
 import App from './App.tsx';
-import { AuthProvider } from './auth-state';
 import { NotificationProvider } from './notification';
 import { LayoutProvider } from './templates/MainLayout';
 
@@ -17,13 +16,11 @@ createRoot(document.getElementById('root')!).render(
       <CssBaseline />
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <LayoutProvider>
-            <AuthProvider>
-              <NotificationProvider>
-                <App />
-              </NotificationProvider>
-            </AuthProvider>
-          </LayoutProvider>
+          <NotificationProvider>
+            <LayoutProvider>
+              <App />
+            </LayoutProvider>
+          </NotificationProvider>
         </QueryClientProvider>
       </BrowserRouter>
     </CssVarsProvider>

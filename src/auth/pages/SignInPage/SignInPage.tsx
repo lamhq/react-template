@@ -1,12 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 import { useCallback } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router';
 
 import { Sheet, Typography } from '@mui/joy';
 import { useSignIn } from '../../../auth-state';
 import { useNotification } from '../../../notification';
-import { HOME_ROUTE } from '../../../routes';
 import { signInMutation, type SignInResponse } from '../../api';
 import SignInForm, { type SignInFormData } from '../../organisms/SignInForm';
 import type { User } from '../../types';
@@ -17,10 +15,9 @@ const defaultValues: SignInFormData = {
 };
 
 export default function SignInPage() {
-  const navigate = useNavigate();
   const { showSuccess, showError } = useNotification();
-  const authenticate = useSignIn<User>();
-  const { mutate: signIn, isPending } = useMutation<
+  const signIn = useSignIn<User>();
+  const { mutate: getAccessToken, isPending } = useMutation<
     SignInResponse,
     Error,
     SignInFormData
@@ -28,8 +25,7 @@ export default function SignInPage() {
     mutationFn: signInMutation,
     onSuccess: (data) => {
       showSuccess('Successfully signed in!');
-      authenticate(data);
-      void navigate(HOME_ROUTE);
+      signIn(data);
     },
     onError: (error: Error) => {
       showError(error.message);
@@ -38,9 +34,9 @@ export default function SignInPage() {
 
   const handleSubmit: SubmitHandler<SignInFormData> = useCallback(
     (data) => {
-      signIn(data);
+      getAccessToken(data);
     },
-    [signIn],
+    [getAccessToken],
   );
 
   return (

@@ -1,24 +1,23 @@
-import type { JSX } from 'react';
-import { Navigate } from 'react-router';
+import { useEffect, type JSX } from 'react';
+import { AUTH_UNAUTHENTICATED_EVENT } from './constants';
 import { useIsAuthenticated } from './hooks';
 
 export function requireAuth<T extends JSX.IntrinsicAttributes>(
   Component: React.ComponentType<T>,
-  options: {
-    fallbackPath?: string;
-  } = {},
 ) {
-  if (options.fallbackPath === undefined) {
-    throw new Error('fallbackPath is required in requireAuth');
-  }
-  const signInRoute = options.fallbackPath;
-
   function ProtectedComponent(props: T) {
     const isAuthenticated = useIsAuthenticated();
-    if (!isAuthenticated) {
-      return <Navigate to={signInRoute} />;
-    }
-    return <Component {...props} />;
+
+    useEffect(() => {
+      if (!isAuthenticated) {
+        // dispatch event after `useEffect` in parent component is executed
+        setTimeout(() => {
+          window.dispatchEvent(new CustomEvent(AUTH_UNAUTHENTICATED_EVENT));
+        });
+      }
+    }, [isAuthenticated]);
+
+    return isAuthenticated ? <Component {...props} /> : null;
   }
 
   // set friendly component name in devtools
