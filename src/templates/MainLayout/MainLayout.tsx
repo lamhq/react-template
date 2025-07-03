@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Outlet, useLocation } from 'react-router';
 
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
@@ -6,6 +7,8 @@ import Box from '@mui/joy/Box';
 import Breadcrumbs from '@mui/joy/Breadcrumbs';
 import Link from '@mui/joy/Link';
 import Typography from '@mui/joy/Typography';
+import LoadingFallback from '../../common/organism/LoadingFallback';
+import { ErrorBoundary } from '../../error';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import { useBreadcrumbs } from './hooks';
@@ -91,7 +94,11 @@ export default function MainLayout({ menuItems }: MainLayoutProps) {
           </Box>
         )}
 
-        <Outlet />
+        <ErrorBoundary>
+          <Suspense fallback={<LoadingFallback />}>
+            <Outlet />
+          </Suspense>
+        </ErrorBoundary>
       </Box>
     </Box>
   );

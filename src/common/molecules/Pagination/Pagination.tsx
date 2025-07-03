@@ -3,7 +3,6 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Button from '@mui/joy/Button';
 import ButtonGroup from '@mui/joy/ButtonGroup';
 import IconButton from '@mui/joy/IconButton';
-import { type SxProps } from '@mui/system';
 
 export type PaginationProps = {
   count: number;
@@ -12,10 +11,9 @@ export type PaginationProps = {
     event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
     page: number,
   ) => void;
-  sx?: SxProps;
 };
 
-export default function Pagination({ count, page, onChange, sx }: PaginationProps) {
+export default function Pagination({ count, page, onChange }: PaginationProps) {
   // Calculate the total number of pages
   const totalPages = Math.max(1, count);
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -25,7 +23,7 @@ export default function Pagination({ count, page, onChange, sx }: PaginationProp
       spacing="0.5rem"
       size="sm"
       aria-label="pagination button group"
-      sx={sx}
+      sx={{ justifyContent: 'center' }}
     >
       <IconButton
         onClick={(e) => onChange(e, page - 1)}
