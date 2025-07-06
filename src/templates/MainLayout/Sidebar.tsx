@@ -1,4 +1,5 @@
-import { NavLink } from 'react-router';
+import type { MenuItem } from './types';
+import { closeSidebar } from './utils';
 
 import Box from '@mui/joy/Box';
 import Divider from '@mui/joy/Divider';
@@ -6,13 +7,11 @@ import GlobalStyles from '@mui/joy/GlobalStyles';
 import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
 import ListItemButton, { listItemButtonClasses } from '@mui/joy/ListItemButton';
-import ListItemContent from '@mui/joy/ListItemContent';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
+import NavListItemButton from '../../common/molecules/NavListItemButton';
 import ColorSchemeToggle from './ColorSchemeToggle';
 import SignOutButton from './SignOutButton';
-import type { MenuItem } from './types';
-import { closeSidebar } from './utils';
 
 export type SidebarProps = {
   menuItems: MenuItem[];
@@ -98,26 +97,15 @@ export default function Sidebar({ menuItems }: SidebarProps) {
           }}
         >
           {menuItems.map((item) => {
-            const Icon = item.icon;
             return (
               <ListItem key={item.path}>
                 <ListItemButton
-                  component={NavLink}
+                  component={NavListItemButton}
                   to={item.path}
-                  sx={{
-                    '&.active': {
-                      fontWeight: 'var(--joy-fontWeight-md)',
-                      backgroundColor: 'var(--joy-palette-neutral-plainActiveBg)',
-                      '--Icon-color': 'currentColor',
-                    },
-                  }}
                   onClick={() => closeSidebar()}
-                >
-                  <Icon />
-                  <ListItemContent>
-                    <Typography level="title-sm">{item.label}</Typography>
-                  </ListItemContent>
-                </ListItemButton>
+                  label={item.label}
+                  icon={item.icon}
+                />
               </ListItem>
             );
           })}

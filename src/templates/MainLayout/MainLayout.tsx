@@ -1,5 +1,6 @@
-import { Suspense } from 'react';
 import { Outlet, useLocation } from 'react-router';
+import { useBreadcrumbs } from './hooks';
+import type { MenuItem } from './types';
 
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
@@ -7,12 +8,9 @@ import Box from '@mui/joy/Box';
 import Breadcrumbs from '@mui/joy/Breadcrumbs';
 import Link from '@mui/joy/Link';
 import Typography from '@mui/joy/Typography';
-import LoadingFallback from '../../common/organism/LoadingFallback';
 import { ErrorBoundary } from '../../error';
 import Header from './Header';
 import Sidebar from './Sidebar';
-import { useBreadcrumbs } from './hooks';
-import type { MenuItem } from './types';
 
 export type MainLayoutProps = {
   menuItems: MenuItem[];
@@ -31,6 +29,7 @@ export default function MainLayout({ menuItems }: MainLayoutProps) {
       <Header />
       <Sidebar menuItems={menuItems} />
 
+      {/* main content */}
       <Box
         component="main"
         className="MainContent"
@@ -50,6 +49,7 @@ export default function MainLayout({ menuItems }: MainLayoutProps) {
           gap: 1,
         }}
       >
+        {/* breadcrumbs */}
         {bcItems.length > 0 && (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Breadcrumbs
@@ -76,6 +76,7 @@ export default function MainLayout({ menuItems }: MainLayoutProps) {
           </Box>
         )}
 
+        {/* page title */}
         {curMenuItem && (
           <Box
             sx={{
@@ -94,10 +95,9 @@ export default function MainLayout({ menuItems }: MainLayoutProps) {
           </Box>
         )}
 
+        {/* catch render errors in pages */}
         <ErrorBoundary>
-          <Suspense fallback={<LoadingFallback />}>
-            <Outlet />
-          </Suspense>
+          <Outlet />
         </ErrorBoundary>
       </Box>
     </Box>
