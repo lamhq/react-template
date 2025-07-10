@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react-vite';
 import { initialize, mswLoader } from 'msw-storybook-addon';
+import MockProvider from './MockProvider';
 import { handlers } from './msw';
 
 // Initialize MSW
@@ -28,6 +29,13 @@ const preview: Preview = {
   },
   // Provide the MSW addon loader globally
   loaders: [mswLoader],
+  decorators: [
+    (Story) => (
+      <MockProvider>
+        <Story />
+      </MockProvider>
+    ),
+  ],
 };
 
 export default preview;
