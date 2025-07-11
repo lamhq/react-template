@@ -1,10 +1,10 @@
 import Box from '@mui/joy/Box';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
+import LoadingFallback from '../../../common/molecules/LoadingFallback';
 import Pagination, {
   type PaginationProps,
 } from '../../../common/molecules/Pagination';
-import LoadingFallback from '../../../common/organism/LoadingFallback';
 import { getTodos, type Todo } from '../../api';
 import TodoListView from '../../molecules/TodoList/TodoList';
 
