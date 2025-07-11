@@ -5,11 +5,11 @@ import type { NavLinkRenderProps } from 'react-router';
 import { NavLink } from 'react-router';
 
 export type NavListItemButtonProps = {
-  label: string;
-  onClick?: () => void;
-  icon: React.ComponentType;
   to: string;
+  label: string;
+  icon: React.ComponentType;
   className?: string;
+  onClick?: () => void;
 };
 
 export default function NavListItemButton({

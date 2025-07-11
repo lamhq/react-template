@@ -16,6 +16,7 @@ export type PaginationProps = {
 export default function Pagination({ count, page, onChange }: PaginationProps) {
   const totalPages = Math.max(1, count);
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+
   if (totalPages === 1) return null;
 
   return (
