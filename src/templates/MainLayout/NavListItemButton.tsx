@@ -1,7 +1,8 @@
+import type { NavLinkRenderProps } from 'react-router';
+
 import CircularProgress from '@mui/joy/CircularProgress';
 import ListItemContent from '@mui/joy/ListItemContent';
 import Typography from '@mui/joy/Typography';
-import type { NavLinkRenderProps } from 'react-router';
 import { NavLink } from 'react-router';
 
 export type NavListItemButtonProps = {
