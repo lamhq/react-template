@@ -5,7 +5,7 @@ import Box from '@mui/joy/Box';
 import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
 import Typography from '@mui/joy/Typography';
-import LoadingFallback from '../../../common/molecules/LoadingFallback';
+import LoadingFallback from '../../../common/atoms/LoadingFallback';
 import Pagination from '../../../common/molecules/Pagination';
 import DeleteTodoBtn from '../DeleteTodoBtn';
 import TodoCheckbox from '../TodoCheckbox';

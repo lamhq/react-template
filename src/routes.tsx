@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router';
 
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import { requireAuth } from './auth-state';
-import LoadingFallback from './common/molecules/LoadingFallback';
+import LoadingFallback from './common/atoms/LoadingFallback';
 import MainLayout from './templates/MainLayout';
 
 /**
