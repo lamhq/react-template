@@ -1,10 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNotification } from '../../../notification';
 import { deleteTodo, type Todo } from '../../api';
+import DeleteTodoBtn from './DeleteTodoBtn';
 
-export function useDeleteTodoLogic(todo: Todo) {
+export type DeleteTodoBtnContainerProps = {
+  todo: Todo;
+};
+
+export default function DeleteTodoBtnContainer({
+  todo,
+}: DeleteTodoBtnContainerProps) {
   const queryClient = useQueryClient();
   const { showSuccess, showError } = useNotification();
+
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteTodo(todo.id),
     onSuccess: () => {
@@ -15,7 +23,8 @@ export function useDeleteTodoLogic(todo: Todo) {
       showError(err.message);
     },
   });
+
   const handleDelete = () => mutate();
 
-  return { handleDelete, isPending };
+  return <DeleteTodoBtn onDelete={handleDelete} isPending={isPending} />;
 }
