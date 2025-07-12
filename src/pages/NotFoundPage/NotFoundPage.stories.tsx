@@ -8,9 +8,7 @@ const meta = {
   parameters: {
     layout: 'fullscreen',
   },
-  argTypes: {
-    // NotFoundPage doesn't accept props, so no argTypes needed
-  },
+  title: 'App/Pages/NotFoundPage',
 } satisfies Meta<typeof NotFoundPage>;
 
 export default meta;

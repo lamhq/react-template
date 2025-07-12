@@ -35,6 +35,7 @@ const sampleMenuItems: MenuItem[] = [
 ];
 
 const meta = {
+  title: 'App/Templates/MainLayout',
   component: MainLayout,
   parameters: {
     layout: 'fullscreen',
