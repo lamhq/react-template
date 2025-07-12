@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { Todo } from '../../api';
 
+import { ConfirmProvider } from '../../../confirm';
 import { NotificationProvider } from '../../../notification/NotificationProvider';
 import TodoList from './TodoList';
 
@@ -37,7 +38,9 @@ const meta = {
     (Story) => (
       <QueryClientProvider client={queryClient}>
         <NotificationProvider>
-          <Story />
+          <ConfirmProvider>
+            <Story />
+          </ConfirmProvider>
         </NotificationProvider>
       </QueryClientProvider>
     ),

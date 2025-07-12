@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useConfirm } from '../../../confirm';
 import { useNotification } from '../../../notification';
 import { deleteTodo, type Todo } from '../../api';
 import DeleteTodoBtn from './DeleteTodoBtn';
@@ -12,6 +13,7 @@ export default function DeleteTodoBtnContainer({
 }: DeleteTodoBtnContainerProps) {
   const queryClient = useQueryClient();
   const { showSuccess, showError } = useNotification();
+  const confirm = useConfirm();
 
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteTodo(todo.id),
@@ -24,7 +26,19 @@ export default function DeleteTodoBtnContainer({
     },
   });
 
-  const handleDelete = () => mutate();
+  const handleDelete = async () => {
+    const confirmed = await confirm({
+      title: 'Delete Todo',
+      content: `Are you sure you want to delete "${todo.title}"?`,
+      confirmationText: 'Delete',
+      cancellationText: 'Cancel',
+      confirmationButtonProps: { color: 'danger' },
+    });
+
+    if (confirmed) {
+      mutate();
+    }
+  };
 
   return <DeleteTodoBtn onDelete={handleDelete} isPending={isPending} />;
 }

@@ -1,11 +1,12 @@
-import { CssBaseline, CssVarsProvider } from '@mui/joy';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { RouterProvider } from 'react-router';
-
-import { NotificationProvider } from './notification';
 import { router } from './routes';
+
+import { CssBaseline, CssVarsProvider } from '@mui/joy';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { RouterProvider } from 'react-router';
+import { ConfirmProvider } from './confirm';
+import { NotificationProvider } from './notification';
 import { LayoutProvider } from './templates/MainLayout';
 import RouterAuthProvider from './templates/RouterAuthProvider';
 
@@ -19,7 +20,9 @@ createRoot(document.getElementById('root')!).render(
         <NotificationProvider>
           <RouterAuthProvider>
             <LayoutProvider>
-              <RouterProvider router={router} />
+              <ConfirmProvider>
+                <RouterProvider router={router} />
+              </ConfirmProvider>
             </LayoutProvider>
           </RouterAuthProvider>
         </NotificationProvider>
