@@ -1,14 +1,21 @@
 import Checkbox from '@mui/joy/Checkbox';
 import { type Todo } from '../../api';
-import { useTodoCheckLogic } from './useTodoCheckLogic';
 
-export default function TodoCheckbox({ todo }: { todo: Todo }) {
-  const { handleCheck, isPending } = useTodoCheckLogic(todo);
+export type TodoCheckboxProps = {
+  todo: Todo;
+  onCheck: (checked: boolean) => void;
+  isPending: boolean;
+};
 
+export default function TodoCheckbox({
+  todo,
+  onCheck,
+  isPending,
+}: TodoCheckboxProps) {
   return (
     <Checkbox
       checked={todo.status === 'completed'}
-      onChange={(e) => handleCheck(e.target.checked)}
+      onChange={(e) => onCheck(e.target.checked)}
       disabled={isPending}
       sx={{ mr: 1 }}
     />

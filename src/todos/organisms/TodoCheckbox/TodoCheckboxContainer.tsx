@@ -1,8 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateTodo, type Todo } from '../../api';
+import TodoCheckbox from './TodoCheckbox';
 
-export function useTodoCheckLogic(todo: Todo) {
+export type TodoCheckboxContainerProps = {
+  todo: Todo;
+};
+
+export default function TodoCheckboxContainer({ todo }: TodoCheckboxContainerProps) {
   const queryClient = useQueryClient();
+
   const { mutate, isPending } = useMutation({
     mutationFn: (checked: boolean) =>
       updateTodo(todo.id, {
@@ -17,8 +23,5 @@ export function useTodoCheckLogic(todo: Todo) {
     mutate(checked);
   };
 
-  return {
-    handleCheck,
-    isPending,
-  };
+  return <TodoCheckbox todo={todo} onCheck={handleCheck} isPending={isPending} />;
 }
