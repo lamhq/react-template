@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { type PaginationProps } from '../../../common/molecules/Pagination';
 import { getTodos, type Todo } from '../../api';
+import { TODO_QUERY_KEY } from '../../constants';
 import TodoList from './TodoList';
 
 export default function TodoListContainer() {
@@ -13,7 +14,7 @@ export default function TodoListContainer() {
     items: Todo[];
     totalPages: number;
   }>({
-    queryKey: ['todos', page],
+    queryKey: [TODO_QUERY_KEY, page],
     queryFn: async () => {
       const [items, total] = await getTodos(page, limit);
       setPageCount(total);

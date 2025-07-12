@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNotification } from '../../../notification';
 import { createTodo } from '../../api';
+import { TODO_QUERY_KEY } from '../../constants';
 import TodoFormView from '../../molecules/TodoForm';
 
 export default function AddTodoForm() {
@@ -10,7 +11,7 @@ export default function AddTodoForm() {
   const { mutate: addTodo, isPending } = useMutation({
     mutationFn: createTodo,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['todos'] });
+      queryClient.invalidateQueries({ queryKey: [TODO_QUERY_KEY] });
       showSuccess('Todo added!');
     },
     onError: (err: Error) => {
