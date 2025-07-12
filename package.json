@@ -22,6 +22,7 @@
     "@mui/joy": "5.0.0-beta.52",
     "@tanstack/react-query": "^5.81.5",
     "axios": "^1.10.0",
+    "jotai": "^2.12.5",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-error-boundary": "^6.0.0",

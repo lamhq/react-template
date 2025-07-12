@@ -1,24 +1,23 @@
 import { useQuery } from '@tanstack/react-query';
+import { useAtom } from 'jotai';
 import { useState } from 'react';
 import { type PaginationProps } from '../../../common/molecules/Pagination';
 import { getTodos, type Todo } from '../../api';
+import { todoListPageAtom } from '../../atoms';
 import { TODO_QUERY_KEY } from '../../constants';
 import TodoList from './TodoList';
 
 export default function TodoListContainer() {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useAtom(todoListPageAtom);
   const [pageCount, setPageCount] = useState(1);
   const limit = 10;
 
-  const { data, isLoading, isFetching } = useQuery<{
-    items: Todo[];
-    totalPages: number;
-  }>({
+  const { data, isLoading, isFetching } = useQuery<[Todo[], number]>({
     queryKey: [TODO_QUERY_KEY, page],
     queryFn: async () => {
       const [items, total] = await getTodos(page, limit);
       setPageCount(total);
-      return { items, totalPages: total };
+      return [items, total];
     },
     staleTime: 1000,
     retry: false,
@@ -32,7 +31,7 @@ export default function TodoListContainer() {
 
   return (
     <TodoList
-      todos={data?.items || []}
+      todos={data?.[0] || []}
       isLoading={isLoading}
       isFetching={isFetching}
       page={page}

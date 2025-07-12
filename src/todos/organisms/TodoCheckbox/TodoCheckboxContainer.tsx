@@ -1,5 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useAtomValue } from 'jotai';
 import { updateTodo, type Todo } from '../../api';
+import { todoListPageAtom } from '../../atoms';
 import { TODO_QUERY_KEY } from '../../constants';
 import TodoCheckbox from './TodoCheckbox';
 
@@ -9,7 +11,7 @@ export type TodoCheckboxContainerProps = {
 
 export default function TodoCheckboxContainer({ todo }: TodoCheckboxContainerProps) {
   const queryClient = useQueryClient();
-
+  const page = useAtomValue(todoListPageAtom);
   const { mutate, isPending } = useMutation({
     mutationFn: (checked: boolean) =>
       updateTodo(todo.id, {
@@ -17,14 +19,14 @@ export default function TodoCheckboxContainer({ todo }: TodoCheckboxContainerPro
       }),
     onMutate: async (checked: boolean) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-      await queryClient.cancelQueries({ queryKey: [TODO_QUERY_KEY] });
+      await queryClient.cancelQueries({ queryKey: [TODO_QUERY_KEY, page] });
 
       // Snapshot the previous value
-      const previousTodos = queryClient.getQueryData([TODO_QUERY_KEY]);
+      const previousTodos = queryClient.getQueryData([TODO_QUERY_KEY, page]);
 
       // Optimistically update to the new value
       queryClient.setQueryData(
-        [TODO_QUERY_KEY],
+        [TODO_QUERY_KEY, page],
         (old: [Todo[], number] | undefined) => {
           if (!old) return old;
           const [todos, total] = old;
@@ -45,15 +47,14 @@ export default function TodoCheckboxContainer({ todo }: TodoCheckboxContainerPro
     onError: (_, __, context) => {
       // If the mutation fails, use the context returned from onMutate to roll back
       if (context?.previousTodos) {
-        queryClient.setQueryData([TODO_QUERY_KEY], context.previousTodos);
+        queryClient.setQueryData([TODO_QUERY_KEY, page], context.previousTodos);
       }
     },
-    onSettled: () => {
-      // Always refetch after error or success to ensure cache consistency
-      queryClient.invalidateQueries({ queryKey: [TODO_QUERY_KEY] });
-    },
+    // onSettled: () => {
+    //   // Always refetch after error or success to ensure cache consistency
+    //   queryClient.invalidateQueries({ queryKey: [TODO_QUERY_KEY, page] });
+    // },
   });
-
   const handleCheck = (checked: boolean) => {
     mutate(checked);
   };
