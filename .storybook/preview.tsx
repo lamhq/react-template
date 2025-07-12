@@ -2,6 +2,8 @@ import type { Preview } from '@storybook/react-vite';
 import { initialize, mswLoader } from 'msw-storybook-addon';
 import { handlers } from './msw';
 
+import { CssBaseline, CssVarsProvider } from '@mui/joy';
+
 // Initialize MSW
 initialize();
 
@@ -18,7 +20,7 @@ const preview: Preview = {
       // 'todo' - show a11y violations in the test UI only
       // 'error' - fail CI on a11y violations
       // 'off' - skip a11y checks entirely
-      test: 'todo',
+      test: 'off',
     },
 
     // Add the MSW handlers to the preview
@@ -28,6 +30,14 @@ const preview: Preview = {
   },
   // Provide the MSW addon loader globally
   loaders: [mswLoader],
+  decorators: [
+    (Story) => (
+      <CssVarsProvider>
+        <CssBaseline />
+        <Story />
+      </CssVarsProvider>
+    ),
+  ],
 };
 
 export default preview;

@@ -5,6 +5,11 @@
       "label": "dev",
       "type": "npm",
       "script": "dev"
+    },
+    {
+      "label": "storybook",
+      "type": "npm",
+      "script": "storybook"
     }
   ]
 }

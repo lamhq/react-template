@@ -1,4 +1,5 @@
 import { Outlet, useLocation } from 'react-router';
+import { ErrorBoundary } from '../../error';
 import { useBreadcrumbs } from './hooks';
 import type { MenuItem } from './types';
 
@@ -8,7 +9,6 @@ import Box from '@mui/joy/Box';
 import Breadcrumbs from '@mui/joy/Breadcrumbs';
 import Link from '@mui/joy/Link';
 import Typography from '@mui/joy/Typography';
-import { ErrorBoundary } from '../../error';
 import Header from './Header';
 import Sidebar from './Sidebar';
 

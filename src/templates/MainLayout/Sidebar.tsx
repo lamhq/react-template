@@ -9,8 +9,8 @@ import ListItem from '@mui/joy/ListItem';
 import ListItemButton, { listItemButtonClasses } from '@mui/joy/ListItemButton';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
-import NavListItemButton from '../../common/molecules/NavListItemButton';
 import ColorSchemeToggle from './ColorSchemeToggle';
+import NavListItemButton from './NavListItemButton';
 import SignOutButton from './SignOutButton';
 
 export type SidebarProps = {

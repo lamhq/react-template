@@ -1,38 +1,32 @@
+import { type PaginationProps } from '../../../common/molecules/Pagination';
+import { type Todo } from '../../api';
+
 import Box from '@mui/joy/Box';
-import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
-import Pagination, {
-  type PaginationProps,
-} from '../../../common/molecules/Pagination';
-import LoadingFallback from '../../../common/organism/LoadingFallback';
-import { getTodos, type Todo } from '../../api';
-import TodoListView from '../../molecules/TodoList/TodoList';
+import List from '@mui/joy/List';
+import ListItem from '@mui/joy/ListItem';
+import Typography from '@mui/joy/Typography';
+import LoadingFallback from '../../../common/atoms/LoadingFallback';
+import Pagination from '../../../common/molecules/Pagination';
+import DeleteTodoBtn from '../DeleteTodoBtn';
+import TodoCheckbox from '../TodoCheckbox';
 
-export default function TodoList() {
-  const [page, setPage] = useState(1);
-  const [pageCount, setPageCount] = useState(1);
-  const limit = 10;
+export type TodoListProps = {
+  todos: Todo[];
+  isLoading: boolean;
+  isFetching: boolean;
+  page: number;
+  pageCount: number;
+  onPageChange: PaginationProps['onChange'];
+};
 
-  const { data, isLoading, isFetching } = useQuery<{
-    items: Todo[];
-    totalPages: number;
-  }>({
-    queryKey: ['todos', page],
-    queryFn: async () => {
-      const [items, total] = await getTodos(page, limit);
-      setPageCount(total);
-      return { items, totalPages: total };
-    },
-    staleTime: 1000,
-    retry: false,
-    throwOnError: true,
-    networkMode: 'always',
-  });
-
-  const handlePageChange: PaginationProps['onChange'] = (_, value: number) => {
-    setPage(value);
-  };
-
+export default function TodoList({
+  todos,
+  isLoading,
+  isFetching,
+  page,
+  pageCount,
+  onPageChange,
+}: TodoListProps) {
   if (isLoading) return <LoadingFallback />;
 
   return (
@@ -43,10 +37,54 @@ export default function TodoList() {
           : { transition: 'filter 0.3s' }
       }
     >
-      <TodoListView todos={data?.items || []} />
+      {todos.length === 0 ? (
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            py: 4,
+          }}
+        >
+          <Typography level="body-md" color="neutral">
+            No todos found. Create your first todo to get started!
+          </Typography>
+        </Box>
+      ) : (
+        <>
+          <List>
+            {todos.map((todo) => (
+              <ListItem
+                key={todo.id}
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 1,
+                }}
+              >
+                <TodoCheckbox todo={todo} />
+                <Box sx={{ flex: 1 }}>
+                  <Typography
+                    sx={{
+                      textDecoration:
+                        todo.status === 'completed' ? 'line-through' : 'none',
+                      color:
+                        todo.status === 'completed' ? 'text.tertiary' : undefined,
+                    }}
+                  >
+                    {todo.title}
+                  </Typography>
+                </Box>
+                <DeleteTodoBtn todo={todo} />
+              </ListItem>
+            ))}
+          </List>
 
-      {pageCount > 1 && (
-        <Pagination count={pageCount} page={page} onChange={handlePageChange} />
+          {pageCount > 1 && (
+            <Pagination count={pageCount} page={page} onChange={onPageChange} />
+          )}
+        </>
       )}
     </Box>
   );

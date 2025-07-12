@@ -1,5 +1,5 @@
 import Box from '@mui/joy/Box';
-import TodoForm from '../../organisms/TodoForm/TodoForm';
+import AddTodoForm from '../../organisms/AddTodoForm/AddTodoForm';
 import TodoList from '../../organisms/TodoList';
 
 export default function TodoListPage() {
@@ -7,7 +7,7 @@ export default function TodoListPage() {
     <Box
       sx={{ maxWidth: 400, mt: 4, display: 'flex', flexDirection: 'column', gap: 1 }}
     >
-      <TodoForm />
+      <AddTodoForm />
       <TodoList />
     </Box>
   );

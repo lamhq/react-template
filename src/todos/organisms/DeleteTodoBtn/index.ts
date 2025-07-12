@@ -1,1 +1,1 @@
-export { default } from './DeleteTodoBtn';
+export { default } from './DeleteTodoBtnContainer';

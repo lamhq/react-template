@@ -1,13 +1,14 @@
 import type { FallbackProps } from 'react-error-boundary';
+import { isApiError } from '../../utils';
 
 import BlockIcon from '@mui/icons-material/Block';
 import CloudOffIcon from '@mui/icons-material/CloudOff';
+import ConstructionIcon from '@mui/icons-material/Construction';
 import SearchIcon from '@mui/icons-material/Search';
 import WarningIcon from '@mui/icons-material/Warning';
 import Button from '@mui/joy/Button';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
-import { isApiError } from '../utils';
 
 export default function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   const iconStyle = { fontSize: '5rem' };
@@ -40,6 +41,7 @@ export default function ErrorFallback({ error, resetErrorBoundary }: FallbackPro
 
       case 500:
         message = 'Our server has an error. Please try again later.';
+        icon = <ConstructionIcon style={iconStyle} />;
         break;
 
       default:
