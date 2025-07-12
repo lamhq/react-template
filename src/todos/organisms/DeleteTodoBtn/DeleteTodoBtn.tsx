@@ -1,34 +1,22 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/joy/IconButton';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNotification } from '../../../notification';
-import { deleteTodo, type Todo } from '../../api';
 
 export type DeleteTodoBtnProps = {
-  todo: Todo;
   size?: 'sm' | 'md' | 'lg';
+  onDelete: () => void;
+  isPending: boolean;
 };
 
-export default function DeleteTodoBtn({ todo, size = 'sm' }: DeleteTodoBtnProps) {
-  const queryClient = useQueryClient();
-  const { showSuccess, showError } = useNotification();
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: () => deleteTodo(todo.id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['todos'] });
-      showSuccess('Todo deleted!');
-    },
-    onError: (err: Error) => {
-      showError(err.message);
-    },
-  });
-
+export default function DeleteTodoBtn({
+  size = 'sm',
+  onDelete,
+  isPending,
+}: DeleteTodoBtnProps) {
   return (
     <IconButton
       color="danger"
       size={size}
-      onClick={() => mutate()}
+      onClick={onDelete}
       disabled={isPending}
       title="Delete todo"
     >

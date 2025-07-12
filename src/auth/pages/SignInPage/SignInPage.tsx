@@ -1,44 +1,19 @@
-import { useMutation } from '@tanstack/react-query';
-import { useCallback } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 
 import { Sheet, Typography } from '@mui/joy';
-import { useSignIn } from '../../../auth-state';
-import { useNotification } from '../../../notification';
-import { signInMutation, type SignInResponse } from '../../api';
 import SignInForm, { type SignInFormData } from '../../organisms/SignInForm';
-import type { User } from '../../types';
 
-const defaultValues: SignInFormData = {
-  username: 'test@test.com',
-  password: '12345',
+export type SignInPageProps = {
+  defaultValues: SignInFormData;
+  onSubmit: SubmitHandler<SignInFormData>;
+  isPending: boolean;
 };
 
-export default function SignInPage() {
-  const { showSuccess, showError } = useNotification();
-  const signIn = useSignIn<User>();
-  const { mutate: getAccessToken, isPending } = useMutation<
-    SignInResponse,
-    Error,
-    SignInFormData
-  >({
-    mutationFn: signInMutation,
-    onSuccess: (data) => {
-      showSuccess('Successfully signed in!');
-      signIn(data);
-    },
-    onError: (error: Error) => {
-      showError(error.message);
-    },
-  });
-
-  const handleSubmit: SubmitHandler<SignInFormData> = useCallback(
-    (data) => {
-      getAccessToken(data);
-    },
-    [getAccessToken],
-  );
-
+export default function SignInPage({
+  defaultValues,
+  onSubmit,
+  isPending,
+}: SignInPageProps) {
   return (
     <Sheet
       variant="outlined"
@@ -64,7 +39,7 @@ export default function SignInPage() {
 
       <SignInForm
         defaultValues={defaultValues}
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
         isSubmitting={isPending}
       />
     </Sheet>

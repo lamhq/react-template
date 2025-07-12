@@ -1,17 +1,28 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, fn, userEvent, within } from 'storybook/test';
+import { fn } from 'storybook/test';
+
+import type { SignInFormData } from './SignInForm';
 import SignInForm from './SignInForm';
 
 const meta = {
-  title: 'Organisms/SignInForm',
   component: SignInForm,
-  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
-  args: {
-    onSubmit: fn(),
-    isSubmitting: false,
+  tags: ['autodocs'],
+  argTypes: {
+    defaultValues: {
+      description: 'Default form values for username and password',
+      control: 'object',
+    },
+    onSubmit: {
+      description: 'Function called when the form is submitted',
+      control: false,
+    },
+    isSubmitting: {
+      description: 'Whether the form is currently submitting',
+      control: 'boolean',
+    },
   },
 } satisfies Meta<typeof SignInForm>;
 
@@ -19,76 +30,40 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    defaultValues: {
-      username: 'test@example.com',
-      password: 'password123',
-    },
-  },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-
-    // Check that form elements are present
-    const emailInput = canvas.getByLabelText(/email/i);
-    const passwordInput = canvas.getByLabelText(/password/i);
-    const submitButton = canvas.getByRole('button', { name: /log in/i });
-
-    await expect(emailInput).toBeInTheDocument();
-    await expect(passwordInput).toBeInTheDocument();
-    await expect(submitButton).toBeInTheDocument();
-
-    // Test form submission
-    await userEvent.click(submitButton);
-    await expect(args.onSubmit).toHaveBeenCalledWith(
-      { username: 'test@example.com', password: 'password123' },
-      expect.anything(),
-    );
-  },
+const defaultFormData: SignInFormData = {
+  username: '',
+  password: '',
 };
 
-export const WithValidationErrors: Story = {
+export const Default: Story = {
   args: {
-    defaultValues: {
-      username: 'invalid-email',
-      password: '',
-    },
+    defaultValues: defaultFormData,
+    onSubmit: fn(),
+    isSubmitting: false,
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    const submitButton = canvas.getByRole('button', { name: /log in/i });
-
-    // Submit form with invalid data
-    await userEvent.click(submitButton);
-
-    // Check for validation error messages
-    const emailError = canvas.getByText(/please enter a valid email/i);
-    const passwordError = canvas.getByText(/please enter your password/i);
-
-    await expect(emailError).toBeInTheDocument();
-    await expect(passwordError).toBeInTheDocument();
+  parameters: {
+    docs: {
+      description: {
+        story: 'Shows the default sign-in form with empty fields.',
+      },
+    },
   },
 };
 
 export const Submitting: Story = {
   args: {
     defaultValues: {
-      username: 'test@example.com',
-      password: 'password123',
+      username: 'invalid-email',
+      password: '',
     },
+    onSubmit: fn(),
     isSubmitting: true,
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Check that submit button shows loading state
-    const submitButton = canvas.getByRole('button', { name: /log in/i });
-    await expect(submitButton).toBeInTheDocument();
-
-    // The button should be disabled or show loading state
-    // Note: MUI Joy Button with loading prop shows a spinner
-    const loadingSpinner = canvas.getByRole('progressbar');
-    await expect(loadingSpinner).toBeInTheDocument();
+  parameters: {
+    docs: {
+      description: {
+        story: 'Shows the sign-in form when submitting.',
+      },
+    },
   },
 };

@@ -1,1 +1,1 @@
-export { default } from './TodoCheckbox';
+export { default } from './TodoCheckboxContainer';
