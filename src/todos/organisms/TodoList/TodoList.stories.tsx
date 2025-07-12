@@ -17,6 +17,21 @@ const meta = {
     todos: {
       description: 'Array of todo items to display in the list',
     },
+    isLoading: {
+      description: 'Whether the todos are currently loading',
+    },
+    isFetching: {
+      description: 'Whether the todos are being fetched (for background updates)',
+    },
+    page: {
+      description: 'Current page number for pagination',
+    },
+    pageCount: {
+      description: 'Total number of pages available',
+    },
+    onPageChange: {
+      description: 'Callback function when page changes',
+    },
   },
   decorators: [
     (Story) => (
@@ -66,17 +81,30 @@ const mockTodos: Todo[] = [
     createdAt: '2024-01-01T12:00:00Z',
     updatedAt: '2024-01-01T12:00:00Z',
   },
+  {
+    id: '5',
+    title: 'Deploy to production',
+    description: 'Deploy the latest version to production environment',
+    status: 'completed',
+    createdAt: '2024-01-01T08:00:00Z',
+    updatedAt: '2024-01-01T17:00:00Z',
+  },
 ];
 
 export const Default: Story = {
   args: {
     todos: mockTodos,
+    isLoading: false,
+    isFetching: false,
+    page: 1,
+    pageCount: 1,
+    onPageChange: (page) => console.log('Page changed to:', page),
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Default TodoList component displaying a mix of todos with different statuses. Each todo shows a checkbox, title, and delete button.',
+          'Default TodoList component displaying a mix of todos with different statuses. Each todo shows a checkbox, title, and delete button. No pagination is shown when pageCount is 1.',
       },
     },
   },
@@ -85,53 +113,72 @@ export const Default: Story = {
 export const Empty: Story = {
   args: {
     todos: [],
+    isLoading: false,
+    isFetching: false,
+    page: 1,
+    pageCount: 1,
+    onPageChange: (page) => console.log('Page changed to:', page),
   },
   parameters: {
     docs: {
       description: {
-        story: 'TodoList component with no todos - displays an empty list.',
+        story: 'TodoList component with no todos - displays an empty state message.',
       },
     },
   },
 };
 
-export const AllPending: Story = {
+export const Loading: Story = {
   args: {
-    todos: mockTodos.filter((todo) => todo.status === 'pending'),
+    todos: [],
+    isLoading: true,
+    isFetching: false,
+    page: 1,
+    pageCount: 1,
+    onPageChange: (page) => console.log('Page changed to:', page),
   },
   parameters: {
     docs: {
       description: {
-        story:
-          'TodoList showing only pending todos - all items are unchecked and have normal text styling.',
+        story: 'TodoList component in loading state - shows a loading fallback.',
       },
     },
   },
 };
 
-export const AllCompleted: Story = {
+export const Fetching: Story = {
   args: {
-    todos: mockTodos.filter((todo) => todo.status === 'completed'),
+    todos: mockTodos,
+    isLoading: false,
+    isFetching: true,
+    page: 1,
+    pageCount: 1,
+    onPageChange: (page) => console.log('Page changed to:', page),
   },
   parameters: {
     docs: {
       description: {
         story:
-          'TodoList showing only completed todos - all items are checked and have strikethrough text styling.',
+          'TodoList component while fetching - shows blurred content to indicate background updates.',
       },
     },
   },
 };
 
-export const InProgress: Story = {
+export const WithPagination: Story = {
   args: {
-    todos: mockTodos.filter((todo) => todo.status === 'in_progress'),
+    todos: mockTodos,
+    isLoading: false,
+    isFetching: false,
+    page: 2,
+    pageCount: 5,
+    onPageChange: (page) => console.log('Page changed to:', page),
   },
   parameters: {
     docs: {
       description: {
         story:
-          'TodoList showing only in-progress todos - items are partially completed.',
+          'TodoList component with pagination - shows pagination controls when pageCount is greater than 1.',
       },
     },
   },
@@ -159,6 +206,11 @@ export const LongTitles: Story = {
         updatedAt: '2024-01-01T11:00:00Z',
       },
     ],
+    isLoading: false,
+    isFetching: false,
+    page: 1,
+    pageCount: 1,
+    onPageChange: (page) => console.log('Page changed to:', page),
   },
   parameters: {
     docs: {
