@@ -45,6 +45,7 @@ export default function SignInForm({
   return (
     <Box
       component="form"
+      role="form"
       onSubmit={handleSubmit(onSubmit)}
       noValidate
       sx={{
