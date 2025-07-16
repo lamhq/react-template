@@ -44,13 +44,14 @@ describe('AddTodoForm', () => {
   const useAtomValueMock = useAtomValue as unknown as ReturnType<typeof vi.fn>;
   const useNotificationMock = useNotification as unknown as ReturnType<typeof vi.fn>;
   const showErrorMock = vi.fn();
-  useNotificationMock.mockReturnValue({
-    showError: showErrorMock,
-  });
 
   beforeEach(() => {
     queryClient = new QueryClient();
     vi.clearAllMocks();
+    useAtomValueMock.mockReturnValue(1);
+    useNotificationMock.mockReturnValue({
+      showError: showErrorMock,
+    });
   });
 
   it('renders input and button', () => {
