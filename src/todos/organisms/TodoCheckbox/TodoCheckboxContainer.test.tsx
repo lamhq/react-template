@@ -33,8 +33,8 @@ function renderWithProviders(
 
 describe('TodoCheckboxContainer', () => {
   let queryClient: QueryClient;
-  const updateTodoMock = updateTodo as unknown as ReturnType<typeof vi.fn>;
-  const useAtomValueMock = useAtomValue as unknown as ReturnType<typeof vi.fn>;
+  const updateTodoMock = vi.mocked(updateTodo);
+  const useAtomValueMock = vi.mocked(useAtomValue);
   const todo: Todo = {
     id: '1',
     title: 'Test Todo',

@@ -15,7 +15,7 @@ vi.mock('react-router', async (importOriginal) => {
 
 describe('NotFoundPage', () => {
   const navigateMock = vi.fn();
-  const useNavigateMock = useNavigate as unknown as ReturnType<typeof vi.fn>;
+  const useNavigateMock = vi.mocked(useNavigate);
   useNavigateMock.mockReturnValue(navigateMock);
 
   beforeEach(() => {

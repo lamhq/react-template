@@ -23,7 +23,7 @@ function createApiError(status?: number): ApiError {
 
 describe('ErrorFallback', () => {
   const resetErrorBoundary = vi.fn();
-  const isApiErrorMock = isApiError as unknown as ReturnType<typeof vi.fn>;
+  const isApiErrorMock = vi.mocked(isApiError);
 
   afterEach(() => {
     isApiErrorMock.mockReset();

@@ -53,11 +53,11 @@ const renderWithProviders = (ui: React.ReactElement) => {
 describe('SignInPageContainer', () => {
   const email = 'test@site.com';
   const password = 'newpass';
-  const signInMutationMock = signInMutation as unknown as ReturnType<typeof vi.fn>;
-  const useNotificationMock = useNotification as unknown as ReturnType<typeof vi.fn>;
+  const signInMutationMock = vi.mocked(signInMutation);
+  const useNotificationMock = vi.mocked(useNotification);
+  const useSignInMock = vi.mocked(useSignIn);
   const showSuccessMock = vi.fn();
   const showErrorMock = vi.fn();
-  const useSignInMock = useSignIn as unknown as ReturnType<typeof vi.fn>;
   const signInMock = vi.fn();
 
   beforeEach(() => {
@@ -68,6 +68,8 @@ describe('SignInPageContainer', () => {
     useNotificationMock.mockReturnValue({
       showSuccess: showSuccessMock,
       showError: showErrorMock,
+      showInfo: vi.fn(),
+      showWarning: vi.fn(),
     });
 
     signInMock.mockReset();

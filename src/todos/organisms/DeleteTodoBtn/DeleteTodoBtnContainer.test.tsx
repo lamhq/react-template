@@ -45,10 +45,10 @@ function renderWithProviders(
 
 describe('DeleteTodoBtnContainer', () => {
   let queryClient: QueryClient;
-  const deleteTodoMock = deleteTodo as unknown as ReturnType<typeof vi.fn>;
-  const useAtomValueMock = useAtomValue as unknown as ReturnType<typeof vi.fn>;
-  const useNotificationMock = useNotification as unknown as ReturnType<typeof vi.fn>;
-  const useConfirmMock = useConfirm as unknown as ReturnType<typeof vi.fn>;
+  const deleteTodoMock = vi.mocked(deleteTodo);
+  const useAtomValueMock = vi.mocked(useAtomValue);
+  const useNotificationMock = vi.mocked(useNotification);
+  const useConfirmMock = vi.mocked(useConfirm);
   const showErrorMock = vi.fn();
   const todo: Todo = {
     id: '1',
@@ -62,7 +62,12 @@ describe('DeleteTodoBtnContainer', () => {
     queryClient = new QueryClient();
     vi.clearAllMocks();
     useAtomValueMock.mockReturnValue(1);
-    useNotificationMock.mockReturnValue({ showError: showErrorMock });
+    useNotificationMock.mockReturnValue({
+      showSuccess: vi.fn(),
+      showError: showErrorMock,
+      showInfo: vi.fn(),
+      showWarning: vi.fn(),
+    });
   });
 
   it('renders delete button', () => {

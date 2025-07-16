@@ -40,9 +40,9 @@ function renderWithProviders(
 
 describe('AddTodoForm', () => {
   let queryClient: QueryClient;
-  const createTodoMock = createTodo as unknown as ReturnType<typeof vi.fn>;
-  const useAtomValueMock = useAtomValue as unknown as ReturnType<typeof vi.fn>;
-  const useNotificationMock = useNotification as unknown as ReturnType<typeof vi.fn>;
+  const createTodoMock = vi.mocked(createTodo);
+  const useAtomValueMock = vi.mocked(useAtomValue);
+  const useNotificationMock = vi.mocked(useNotification);
   const showErrorMock = vi.fn();
 
   beforeEach(() => {
@@ -50,7 +50,10 @@ describe('AddTodoForm', () => {
     vi.clearAllMocks();
     useAtomValueMock.mockReturnValue(1);
     useNotificationMock.mockReturnValue({
+      showSuccess: vi.fn(),
       showError: showErrorMock,
+      showInfo: vi.fn(),
+      showWarning: vi.fn(),
     });
   });
 
