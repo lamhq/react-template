@@ -26,3 +26,6 @@ pnpm-debug.log*
 .vite
 *storybook.log
 storybook-static
+
+# vitest
+coverage/
