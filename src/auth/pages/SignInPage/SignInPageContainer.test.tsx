@@ -87,7 +87,7 @@ describe('SignInPageContainer', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Log in' }));
 
     await waitFor(() => {
-      expect(signInMock).toHaveBeenCalledWith({ user: { id: 1, username: email } });
+      expect(signInMock).toHaveBeenCalledWith({ user: { id: '1', email: email } });
       expect(showSuccessMock).toHaveBeenCalledWith('Successfully signed in!');
     });
   });
