@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "format": "prettier --write .",
-    "lint": "tsc --noEmit && eslint",
+    "lint": "tsc -b --noEmit && eslint",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
@@ -70,6 +70,9 @@
     ]
   },
   "lint-staged": {
-    "*.ts": "eslint --fix"
+    "*.ts": [
+      "tsc --noEmit --skipLibCheck",
+      "eslint --fix"
+    ]
   }
 }

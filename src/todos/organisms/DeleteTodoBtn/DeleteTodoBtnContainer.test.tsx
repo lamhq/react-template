@@ -80,7 +80,7 @@ describe('DeleteTodoBtnContainer', () => {
 
   it('shows confirm dialog and deletes on confirm', async () => {
     useConfirmMock.mockReturnValue(() => Promise.resolve(true));
-    deleteTodoMock.mockResolvedValue({});
+    deleteTodoMock.mockResolvedValue();
     // Set up initial cache
     queryClient.setQueryData([TODO_QUERY_KEY, 1], [[{ ...todo }], 1]);
     renderWithProviders(<DeleteTodoBtnContainer todo={todo} />, { queryClient });

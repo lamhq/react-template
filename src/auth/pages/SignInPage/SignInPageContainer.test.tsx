@@ -77,7 +77,7 @@ describe('SignInPageContainer', () => {
   });
 
   it('calls signIn and shows success notification on successful sign in', async () => {
-    signInMutationMock.mockResolvedValueOnce({ user: { id: 1, username: email } });
+    signInMutationMock.mockResolvedValueOnce({ user: { id: '1', email: email } });
 
     renderWithProviders(<SignInPageContainer />);
     fireEvent.change(screen.getByLabelText('Email'), { target: { value: email } });

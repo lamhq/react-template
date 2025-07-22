@@ -11,7 +11,7 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   [
-    globalIgnores(['dist', 'public']),
+    globalIgnores(['dist', 'public', 'coverage']),
     {
       files: ['**/*.{ts,tsx}'],
       extends: [
