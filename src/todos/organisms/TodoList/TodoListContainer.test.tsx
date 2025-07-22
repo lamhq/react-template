@@ -44,8 +44,7 @@ describe('TodoListContainer', () => {
   beforeEach(() => {
     queryClient = new QueryClient();
     vi.clearAllMocks();
-    useAtomMock.mockReturnValue([1, vi.fn()]);
-    console.log('1123');
+    useAtomMock.mockReturnValue([1, vi.fn() as never]);
     todoComponentMock.mockReset();
   });
 
