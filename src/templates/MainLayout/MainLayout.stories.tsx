@@ -5,7 +5,7 @@ import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { createRoutesStub } from 'react-router';
 
-import { AuthProvider } from '../../auth-state';
+import { AuthStateProvider } from '../../auth-state';
 import { NotificationProvider } from '../../notification';
 import MainLayout from './MainLayout';
 import { LayoutProvider } from './Provider';
@@ -63,9 +63,9 @@ const meta = {
     (Story) => (
       <LayoutProvider>
         <NotificationProvider>
-          <AuthProvider initialState={{}}>
+          <AuthStateProvider initialState={{}}>
             <Story />
-          </AuthProvider>
+          </AuthStateProvider>
         </NotificationProvider>
       </LayoutProvider>
     ),

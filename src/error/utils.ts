@@ -1,4 +1,4 @@
-import { AUTH_UNAUTHENTICATED_EVENT } from '../auth-state';
+import { ON_AUTH_REQUIRED } from '../auth-state';
 import type { ApiError } from './types';
 
 export function isApiError(error: unknown): error is ApiError {
@@ -19,7 +19,7 @@ export async function withErrorHandling<T>(
     if (isApiError(error)) {
       // dispatch event to auth module
       if (isUnauthenticatedError(error)) {
-        window.dispatchEvent(new CustomEvent(AUTH_UNAUTHENTICATED_EVENT));
+        window.dispatchEvent(new CustomEvent(ON_AUTH_REQUIRED));
       } else {
         throw error;
       }
