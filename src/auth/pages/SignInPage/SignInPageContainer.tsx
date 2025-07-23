@@ -15,7 +15,7 @@ const defaultValues: SignInFormData = {
 };
 
 export default function SignInPageContainer() {
-  const { showSuccess, showError } = useNotification();
+  const { showError } = useNotification();
   const signIn = useSignIn<User>();
 
   const { mutate: getAccessToken, isPending } = useMutation<
@@ -25,7 +25,6 @@ export default function SignInPageContainer() {
   >({
     mutationFn: signInMutation,
     onSuccess: (data) => {
-      showSuccess('Successfully signed in!');
       signIn(data);
     },
     onError: (error: Error) => {

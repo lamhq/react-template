@@ -1,5 +1,5 @@
 import { useEffect, type JSX } from 'react';
-import { AUTH_UNAUTHENTICATED_EVENT } from './constants';
+import { ON_AUTH_REQUIRED } from './constants';
 import { useIsAuthenticated } from './hooks';
 
 export function requireAuth<T extends JSX.IntrinsicAttributes>(
@@ -12,7 +12,7 @@ export function requireAuth<T extends JSX.IntrinsicAttributes>(
       if (!isAuthenticated) {
         // dispatch event after `useEffect` in parent component is executed
         setTimeout(() => {
-          window.dispatchEvent(new CustomEvent(AUTH_UNAUTHENTICATED_EVENT));
+          window.dispatchEvent(new CustomEvent(ON_AUTH_REQUIRED));
         });
       }
     }, [isAuthenticated]);
