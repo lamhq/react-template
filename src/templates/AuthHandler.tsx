@@ -1,14 +1,22 @@
 import { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router';
+import { Outlet, useLocation, useNavigate } from 'react-router';
 import { ON_AUTH_REQUIRED, ON_AUTHENTICATED } from '../auth-state';
 import { useNotification } from '../notification';
 import { HOME_ROUTE, SIGN_IN_ROUTE } from '../routes';
 
-export default function AuthHandlerProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+/**
+ * AuthHandlerProvider - Handles authentication flow and navigation logic
+ *
+ * This provider component handle different authentication events in the application.
+ * - redirects unauthenticated users to sign-in page
+ * - redirects users to their intended destination after authentication
+ *
+ * It should be rendered in the top level of the component tree to provide
+ * authentication handling for all child components.
+ *
+ * @param children - Child components that need authentication handling
+ */
+export function AuthHandlerProvider({ children }: { children: React.ReactNode }) {
   const { showError, showSuccess } = useNotification();
   const navigate = useNavigate();
   const location = useLocation();
@@ -41,4 +49,20 @@ export default function AuthHandlerProvider({
   }, [from, navigate, showSuccess]);
 
   return children;
+}
+
+/**
+ * A different version of AuthHandler component to use with React Router (data mode)
+ *
+ * Since RouterProvider doesn't accept children components, this component should
+ * be used as the root element in the router configuration.
+ *
+ * @returns JSX element that provides auth handling for all child routes
+ */
+export default function AuthHandler() {
+  return (
+    <AuthHandlerProvider>
+      <Outlet />
+    </AuthHandlerProvider>
+  );
 }

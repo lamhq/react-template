@@ -7,7 +7,7 @@ import { useNotification } from '../../../notification';
 import { signInMutation } from '../../api';
 
 import { NotificationProvider } from '../../../notification/NotificationProvider';
-import AuthHandlerProvider from '../../../templates/AuthHandler';
+import { AuthHandlerProvider } from '../../../templates/AuthHandler';
 import SignInPageContainer from './SignInPageContainer';
 
 // Mock signInMutation
