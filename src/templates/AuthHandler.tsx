@@ -4,7 +4,7 @@ import { ON_AUTH_REQUIRED, ON_AUTHENTICATED } from '../auth-state';
 import { useNotification } from '../notification';
 import { HOME_ROUTE, SIGN_IN_ROUTE } from '../routes';
 
-function AuthHandlerProvider({ children }: { children: React.ReactNode }) {
+export function AuthHandlerProvider({ children }: { children: React.ReactNode }) {
   const { showError, showSuccess } = useNotification();
   const navigate = useNavigate();
   const location = useLocation();
