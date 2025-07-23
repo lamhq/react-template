@@ -1,10 +1,14 @@
 import { useEffect } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { ON_AUTH_REQUIRED, ON_AUTHENTICATED } from '../auth-state';
 import { useNotification } from '../notification';
 import { HOME_ROUTE, SIGN_IN_ROUTE } from '../routes';
 
-export function AuthHandlerProvider({ children }: { children: React.ReactNode }) {
+export default function AuthHandlerProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const { showError, showSuccess } = useNotification();
   const navigate = useNavigate();
   const location = useLocation();
@@ -37,12 +41,4 @@ export function AuthHandlerProvider({ children }: { children: React.ReactNode })
   }, [from, navigate, showSuccess]);
 
   return children;
-}
-
-export default function AuthHandler() {
-  return (
-    <AuthHandlerProvider>
-      <Outlet />
-    </AuthHandlerProvider>
-  );
 }

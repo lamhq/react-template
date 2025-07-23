@@ -3,7 +3,7 @@ import { requireAuth } from './auth-state';
 
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import LoadingFallback from './common/atoms/LoadingFallback';
-import AuthHandler from './templates/AuthHandler';
+import AuthHandlerProvider from './templates/AuthHandler';
 import MainLayout from './templates/MainLayout';
 
 /**
@@ -26,41 +26,41 @@ const navItems = [{ path: '/', label: 'Todos', icon: HomeRoundedIcon }];
  */
 const ProtectedLayout = requireAuth(() => <MainLayout menuItems={navItems} />);
 
+function lazyImport(path: string) {
+  return async () => {
+    const module = await import(path);
+    const Component = module.default;
+    return {
+      Component: () => (
+        <AuthHandlerProvider>
+          <Component />
+        </AuthHandlerProvider>
+      ),
+    };
+  };
+}
+
 /**
  * Router configuration using React Router Data mode
  */
 export const router = createBrowserRouter([
   {
-    element: <AuthHandler />,
+    path: SIGN_IN_ROUTE,
+    hydrateFallbackElement: <LoadingFallback />,
+    lazy: lazyImport('./auth/pages/SignInPage'),
+  },
+  {
+    element: <ProtectedLayout />,
+    hydrateFallbackElement: <LoadingFallback />,
     children: [
       {
-        path: SIGN_IN_ROUTE,
-        hydrateFallbackElement: <LoadingFallback />,
-        lazy: async () => {
-          const Component = await import('./auth/pages/SignInPage');
-          return { Component: Component.default };
-        },
-      },
-      {
-        element: <ProtectedLayout />,
-        hydrateFallbackElement: <LoadingFallback />,
-        children: [
-          {
-            path: HOME_ROUTE,
-            lazy: async () => {
-              const Component = await import('./todos/pages/TodoListPage');
-              return { Component: Component.default };
-            },
-          },
-        ],
-      },
-      {
-        path: '*',
-        lazy: async () => {
-          const Component = await import('./pages/NotFoundPage');
-          return { Component: Component.default };
-        },
+        path: HOME_ROUTE,
+        lazy: lazyImport('./todos/pages/TodoListPage'),
       },
     ],
+  },
+  {
+    path: '*',
+    lazy: lazyImport('./pages/NotFoundPage'),
   },
 ]);
