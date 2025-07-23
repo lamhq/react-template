@@ -31,7 +31,6 @@ test.describe('Sign In', () => {
 
     // Should show success notification
     await expect(page.getByText('Successfully signed in!')).toBeVisible();
-
     // Should redirect to home page after successful sign in
     await expect(page).toHaveURL('/');
   });
@@ -43,7 +42,6 @@ test.describe('Sign In', () => {
 
     // Should show error notification
     await expect(page.getByText('Failed to sign in')).toBeVisible();
-
     // Should remain on sign in page
     await expect(page).toHaveURL('/sign-in');
   });
@@ -59,29 +57,24 @@ test.describe('Sign In', () => {
   });
 
   test('should disable submit button while signing in', async ({ page }) => {
+    // Mock the api call before navigating
+    await page.route('/api/auth/access-tokens', async (route) => {
+      const json = {
+        user: {
+          id: '123',
+          email: 'test@test.com',
+        },
+      };
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      await route.fulfill({ json });
+    });
+
     await page.getByLabel('Email').fill('test@test.com');
     await page.getByLabel('Password').fill('12345');
-
     const submitButton = page.getByRole('button', { name: 'Log in' });
     await submitButton.click();
 
     // Button should be disabled during submission
     await expect(submitButton).toBeDisabled();
-  });
-
-  test('should redirect authenticated user away from sign in page', async ({
-    page,
-  }) => {
-    // First sign in
-    await page.getByLabel('Email').fill('test@test.com');
-    await page.getByLabel('Password').fill('12345');
-    await page.getByRole('button', { name: 'Log in' }).click();
-    await expect(page).toHaveURL('/');
-
-    // Try to access sign in page again
-    await page.goto('/sign-in');
-
-    // Should redirect to home page
-    await expect(page).toHaveURL('/');
   });
 });

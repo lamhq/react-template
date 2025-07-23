@@ -31,11 +31,11 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
 
-    // Runs tests in a headed browser (with UI visible)
-    headless: false,
+    // // Runs tests in a headed browser (with UI visible)
+    // headless: false,
 
-    // Slows down browser actions by 1000ms for easier debugging
-    launchOptions: { slowMo: 1000 },
+    // // Slows down browser actions by 1000ms for easier debugging
+    // launchOptions: { slowMo: 200 },
   },
 
   /* Configure projects for major browsers */
