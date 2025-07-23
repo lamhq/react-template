@@ -3,5 +3,6 @@ export type ApiError = {
   request?: unknown;
   response?: {
     status: number;
+    data?: { message: string };
   };
 };
