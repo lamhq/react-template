@@ -26,6 +26,24 @@ const navItems = [{ path: '/', label: 'Todos', icon: HomeRoundedIcon }];
  */
 const ProtectedLayout = requireAuth(() => <MainLayout menuItems={navItems} />);
 
+/**
+ * Creates a lazy loader function for React Router components with authentication handling.
+ *
+ * This utility function dynamically imports a component and wraps it with AuthHandlerProvider
+ * to ensure proper authentication context is available throughout the component tree.
+ *
+ * @param path - The module path to dynamically import (should export a default React component)
+ * @returns A lazy loader function compatible with React Router's `lazy` property
+ *
+ * @example
+ * ```tsx
+ * // Usage in router configuration
+ * {
+ *   path: '/dashboard',
+ *   lazy: lazyImport('./pages/DashboardPage')
+ * }
+ * ```
+ */
 function lazyImport(path: string) {
   return async () => {
     const module = await import(path);
