@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { isApiError } from '../error';
+import { isUnauthenticatedError } from '../error';
 import type { SignInFormData } from './organisms/SignInForm';
 
 export type SignInResponse = {
@@ -19,10 +19,9 @@ export async function signInMutation(data: SignInFormData): Promise<SignInRespon
     return response.data;
   } catch (error) {
     console.error(error);
-    console.log(error);
     const message =
-      isApiError(error) && error.response?.status === 401
-        ? error.response?.data?.message
+      isUnauthenticatedError(error) && error.response?.data?.message
+        ? error.response.data.message
         : 'Failed to sign in';
     throw new Error(message);
   }

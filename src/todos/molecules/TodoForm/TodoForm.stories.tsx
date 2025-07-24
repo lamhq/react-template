@@ -13,10 +13,6 @@ const meta = {
     onSubmit: {
       description: 'Callback fired when form is submitted with todo data',
     },
-    isPending: {
-      control: { type: 'boolean' },
-      description: 'Whether the form is in a pending/loading state',
-    },
   },
 } satisfies Meta<typeof TodoForm>;
 
@@ -27,7 +23,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     onSubmit: fn(),
-    isPending: false,
   },
   parameters: {
     docs: {
@@ -42,7 +37,6 @@ export const Default: Story = {
 export const Pending: Story = {
   args: {
     onSubmit: fn(),
-    isPending: true,
   },
   parameters: {
     docs: {

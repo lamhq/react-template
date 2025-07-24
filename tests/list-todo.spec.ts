@@ -155,6 +155,6 @@ test.describe('List Todo Feature', () => {
     );
 
     // Count the number of todo items visible (should be 1)
-    expect(page.getByText('Todo item')).toHaveCount(1);
+    await expect(page.getByText('Todo item')).toHaveCount(1);
   });
 });
