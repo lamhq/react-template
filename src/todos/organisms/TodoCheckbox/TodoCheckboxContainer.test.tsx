@@ -3,6 +3,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useAtomValue } from 'jotai';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { NotificationProvider } from '../../../notification';
 import { updateTodo, type Todo } from '../../api';
 import { TODO_QUERY_KEY } from '../../constants';
 import TodoCheckboxContainer from './TodoCheckboxContainer';
@@ -26,7 +27,7 @@ function renderWithProviders(
 ) {
   return render(
     <QueryClientProvider client={queryClient || new QueryClient()}>
-      {ui}
+      <NotificationProvider>{ui}</NotificationProvider>
     </QueryClientProvider>,
   );
 }
