@@ -86,7 +86,7 @@ test.describe('Sign In', () => {
 
   test('should disable submit button while signing in', async ({ page }) => {
     await page.route('/api/auth/access-tokens', async (route) => {
-      await new Promise((resolve) => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 100));
       await route.fulfill({
         json: {
           user: {
