@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { setupPage } from '../setup';
 
 test.describe('Add Todo Feature', () => {
   test.beforeEach(async ({ page }) => {
@@ -29,13 +30,7 @@ test.describe('Add Todo Feature', () => {
       }
     });
 
-    // access a page before evaluating script
-    await page.goto('/');
-    // Set authentication state
-    await page.evaluate(() => {
-      localStorage.setItem('user', '{"id":"123","email":"test@test.com"}');
-    });
-    // revisit the page
+    await setupPage(page);
     await page.goto('/');
   });
 

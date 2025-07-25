@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { setupPage } from '../setup';
 
 // Mock data: 3 todo items
 const mockTodos = Array.from({ length: 3 }, (_, i) => ({
@@ -25,14 +26,8 @@ test.describe('Delete Todo Feature', () => {
       }
     });
 
-    // access a page before evaluating script
+    await setupPage(page);
     await page.goto('/');
-    // Set authentication state
-    await page.evaluate(() => {
-      localStorage.setItem('user', '{"id":"123","email":"test@test.com"}');
-    });
-    // revisit the page
-    await page.reload();
   });
 
   test('should remove item when clicking delete', async ({ page }) => {

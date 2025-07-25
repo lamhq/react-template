@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { setupPage } from '../setup';
 
 // Mock data: 11 todo items to test pagination (10 per page + 1 extra)
 const mockTodos = Array.from({ length: 11 }, (_, i) => ({
@@ -26,13 +27,8 @@ test.describe('List Todo Feature', () => {
       });
     });
 
-    // Wait for redirect to home page
+    await setupPage(page);
     await page.goto('/');
-
-    // Set authentication state to be logged
-    await page.evaluate(() => {
-      localStorage.setItem('user', '{"id":"123","email":"test@test.com"}');
-    });
   });
 
   test('should show loading on start', async ({ page }) => {
@@ -50,19 +46,11 @@ test.describe('List Todo Feature', () => {
       });
     });
 
-    // Navigate to todo list page (already on home page from beforeEach)
-    await page.reload();
-
     // Should show loading indicator
     await expect(page.getByRole('progressbar')).toBeVisible();
   });
 
   test('should display items from the first page by default', async ({ page }) => {
-    // Uses default API mock from beforeEach (11 todos)
-
-    // Reload to trigger fresh API call
-    await page.reload();
-
     // Wait for loading to complete
     await expect(page.getByRole('progressbar')).not.toBeVisible();
 
@@ -90,9 +78,6 @@ test.describe('List Todo Feature', () => {
       });
     });
 
-    // Reload to trigger fresh API call
-    await page.reload();
-
     // Wait for loading to complete
     await expect(page.getByRole('progressbar')).not.toBeVisible();
 
@@ -101,11 +86,6 @@ test.describe('List Todo Feature', () => {
   });
 
   test('should display 2 pagination items', async ({ page }) => {
-    // Uses default API mock from beforeEach (11 todos requires 2 pages)
-
-    // Reload to trigger fresh API call
-    await page.reload();
-
     // Wait for loading to complete
     await expect(page.getByRole('progressbar')).not.toBeVisible();
 
@@ -124,11 +104,6 @@ test.describe('List Todo Feature', () => {
   });
 
   test('should display items in page 2 when clicking page 2', async ({ page }) => {
-    // Uses default API mock from beforeEach (11 todos)
-
-    // Reload to trigger fresh API call
-    await page.reload();
-
     // Wait for loading to complete
     await expect(page.getByRole('progressbar')).not.toBeVisible();
 
