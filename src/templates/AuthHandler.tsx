@@ -20,7 +20,7 @@ export function AuthHandlerProvider({ children }: { children: React.ReactNode })
   const { showError, showSuccess } = useNotification();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || HOME_ROUTE;
+  const from = location.state?.from?.pathname ?? HOME_ROUTE;
 
   // Redirect unauthenticated users to sign-in, preserving the current path
   useEffect(() => {

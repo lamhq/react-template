@@ -29,7 +29,7 @@ function renderWithProviders(
   { queryClient }: { queryClient?: QueryClient } = {},
 ) {
   return render(
-    <QueryClientProvider client={queryClient || new QueryClient()}>
+    <QueryClientProvider client={queryClient ?? new QueryClient()}>
       {ui}
     </QueryClientProvider>,
   );

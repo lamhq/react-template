@@ -26,7 +26,7 @@ export default function AddTodoForm() {
       const tempTodo: Todo = {
         id: `temp-${Date.now()}`,
         title: newTodo.title,
-        status: newTodo.status || 'pending',
+        status: newTodo.status ?? 'pending',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
