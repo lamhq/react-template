@@ -24,7 +24,7 @@ export default function AddTodoForm() {
 
       // Create a temporary todo for optimistic update
       const tempTodo: Todo = {
-        id: `temp-${Date.now()}`,
+        id: `temp-${Date.now().toString()}`,
         title: newTodo.title,
         status: newTodo.status ?? 'pending',
         createdAt: new Date().toISOString(),
@@ -49,21 +49,17 @@ export default function AddTodoForm() {
     },
     onSuccess: (newTodo: Todo, _, context) => {
       // Update the tempTodo with the actual todo returned from the server
-      if (context?.tempTodo) {
-        queryClient.setQueryData(
-          [TODO_QUERY_KEY, page],
-          (old: [Todo[], number] | undefined) => {
-            if (!old) return old;
-            const [todos, total] = old;
-            return [
-              todos.map((todo) =>
-                todo.id === context.tempTodo.id ? newTodo : todo,
-              ),
-              total,
-            ];
-          },
-        );
-      }
+      queryClient.setQueryData(
+        [TODO_QUERY_KEY, page],
+        (old: [Todo[], number] | undefined) => {
+          if (!old) return old;
+          const [todos, total] = old;
+          return [
+            todos.map((todo) => (todo.id === context.tempTodo.id ? newTodo : todo)),
+            total,
+          ];
+        },
+      );
     },
     onError: (err: Error, __, context) => {
       // If the mutation fails, use the context returned from onMutate to roll back

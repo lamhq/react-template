@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { fn } from 'storybook/test';
 import type { Todo } from '../../api';
 
 import { ConfirmProvider } from '../../../confirm';
@@ -101,7 +102,7 @@ export const Default: Story = {
     isFetching: false,
     page: 1,
     pageCount: 1,
-    onPageChange: (page) => console.log('Page changed to:', page),
+    onPageChange: fn(),
   },
   parameters: {
     docs: {
@@ -120,7 +121,7 @@ export const Empty: Story = {
     isFetching: false,
     page: 1,
     pageCount: 1,
-    onPageChange: (page) => console.log('Page changed to:', page),
+    onPageChange: fn(),
   },
   parameters: {
     docs: {
@@ -138,7 +139,7 @@ export const Loading: Story = {
     isFetching: false,
     page: 1,
     pageCount: 1,
-    onPageChange: (page) => console.log('Page changed to:', page),
+    onPageChange: fn(),
   },
   parameters: {
     docs: {
@@ -156,7 +157,7 @@ export const Fetching: Story = {
     isFetching: true,
     page: 1,
     pageCount: 1,
-    onPageChange: (page) => console.log('Page changed to:', page),
+    onPageChange: fn(),
   },
   parameters: {
     docs: {
@@ -175,7 +176,7 @@ export const WithPagination: Story = {
     isFetching: false,
     page: 2,
     pageCount: 5,
-    onPageChange: (page) => console.log('Page changed to:', page),
+    onPageChange: fn(),
   },
   parameters: {
     docs: {
@@ -213,7 +214,7 @@ export const LongTitles: Story = {
     isFetching: false,
     page: 1,
     pageCount: 1,
-    onPageChange: (page) => console.log('Page changed to:', page),
+    onPageChange: fn(),
   },
   parameters: {
     docs: {

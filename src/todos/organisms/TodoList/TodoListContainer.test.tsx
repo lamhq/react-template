@@ -48,8 +48,8 @@ describe('TodoListContainer', () => {
     todoComponentMock.mockReset();
   });
 
-  it('renders TodoList', async () => {
-    getTodosMock.mockImplementation(() => new Promise(() => {}));
+  it('renders TodoList', () => {
+    getTodosMock.mockImplementation(() => new Promise(() => []));
 
     renderWithProviders(<TodoListContainer />, { queryClient });
 

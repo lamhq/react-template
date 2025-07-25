@@ -1,9 +1,9 @@
 import IconButton, { type IconButtonProps } from '@mui/joy/IconButton';
 import { useColorScheme } from '@mui/joy/styles';
+import { useEffect, useState } from 'react';
 
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeIcon from '@mui/icons-material/LightMode';
-import { useEffect, useState } from 'react';
 
 export default function ColorSchemeToggle(props: IconButtonProps) {
   const { onClick, sx, ...other } = props;
@@ -48,6 +48,7 @@ export default function ColorSchemeToggle(props: IconButtonProps) {
         mode === 'light'
           ? { '& > *:last-of-type': { display: 'none' } }
           : { '& > *:last-of-type': { display: 'initial' } },
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
     >

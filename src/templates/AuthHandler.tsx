@@ -19,14 +19,14 @@ import { HOME_ROUTE, SIGN_IN_ROUTE } from '../routes';
 export function AuthHandlerProvider({ children }: { children: React.ReactNode }) {
   const { showError, showSuccess } = useNotification();
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname ?? HOME_ROUTE;
+  const location: { state?: { from: { pathname: string } } } = useLocation();
+  const from = location.state?.from.pathname ?? HOME_ROUTE;
 
   // Redirect unauthenticated users to sign-in, preserving the current path
   useEffect(() => {
     const handleOnAuthRequire = () => {
       showError('You have to sign in to perform this action');
-      navigate(SIGN_IN_ROUTE, { state: { from: location }, replace: true });
+      void navigate(SIGN_IN_ROUTE, { state: { from: location }, replace: true });
     };
 
     window.addEventListener(ON_AUTH_REQUIRED, handleOnAuthRequire);
@@ -39,7 +39,7 @@ export function AuthHandlerProvider({ children }: { children: React.ReactNode })
   useEffect(() => {
     const handleAuthenticated = () => {
       showSuccess('Successfully signed in!');
-      navigate(from, { replace: true });
+      void navigate(from, { replace: true });
     };
 
     window.addEventListener(ON_AUTHENTICATED, handleAuthenticated);

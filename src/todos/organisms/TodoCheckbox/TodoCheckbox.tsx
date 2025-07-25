@@ -15,7 +15,9 @@ export default function TodoCheckbox({
   return (
     <Checkbox
       checked={todo.status === 'completed'}
-      onChange={(e) => onCheck(e.target.checked)}
+      onChange={(e) => {
+        onCheck(e.target.checked);
+      }}
       disabled={isPending}
       sx={{ mr: 1 }}
     />

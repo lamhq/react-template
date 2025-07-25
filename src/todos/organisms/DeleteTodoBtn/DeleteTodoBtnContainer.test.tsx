@@ -90,10 +90,10 @@ describe('DeleteTodoBtnContainer', () => {
     });
     // Optimistic update: todo should be removed from cache
     await waitFor(() => {
-      const [todos] = queryClient.getQueryData([TODO_QUERY_KEY, 1]) as [
-        Todo[],
-        number,
-      ];
+      const [todos] = queryClient.getQueryData<[Todo[], number]>([
+        TODO_QUERY_KEY,
+        1,
+      ])!;
       expect(todos.find((t) => t.id === '1')).toBeUndefined();
     });
   });
@@ -110,17 +110,19 @@ describe('DeleteTodoBtnContainer', () => {
   it('shows error and rolls back on error', async () => {
     useConfirmMock.mockReturnValue(() => Promise.resolve(true));
     deleteTodoMock.mockRejectedValue(new Error('Failed to delete'));
+
     // Set up initial cache
     queryClient.setQueryData([TODO_QUERY_KEY, 1], [[{ ...todo }], 1]);
     renderWithProviders(<DeleteTodoBtnContainer todo={todo} />, { queryClient });
     fireEvent.click(screen.getByTitle('Delete todo'));
+
     await waitFor(() => {
       expect(showErrorMock).toHaveBeenCalledWith('Failed to delete');
       // Should roll back to previous todos
-      const [todos] = queryClient.getQueryData([TODO_QUERY_KEY, 1]) as [
-        Todo[],
-        number,
-      ];
+      const [todos] = queryClient.getQueryData<[Todo[], number]>([
+        TODO_QUERY_KEY,
+        1,
+      ])!;
       expect(todos.find((t) => t.id === '1')).toBeDefined();
     });
   });

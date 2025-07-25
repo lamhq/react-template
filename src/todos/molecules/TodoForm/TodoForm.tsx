@@ -27,7 +27,9 @@ export default function TodoForm({ onSubmit }: TodoFormProps) {
   return (
     <Box
       component="form"
-      onSubmit={handleSubmit(handleFormSubmit)}
+      onSubmit={(e) => {
+        void handleSubmit(handleFormSubmit)(e);
+      }}
       sx={{
         display: 'flex',
         flexDirection: 'row',
