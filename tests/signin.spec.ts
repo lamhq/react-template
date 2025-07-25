@@ -15,13 +15,14 @@ test.describe('Sign In', () => {
 
   test('should sign in successfully with valid credentials', async ({ page }) => {
     await page.route('/api/auth/access-tokens', async (route) => {
-      const json = {
-        user: {
-          id: '123',
-          email: 'test@test.com',
+      await route.fulfill({
+        json: {
+          user: {
+            id: '123',
+            email: 'test@test.com',
+          },
         },
-      };
-      await route.fulfill({ json });
+      });
     });
 
     await page.getByLabel('Email').fill('test@test.com');
@@ -37,10 +38,12 @@ test.describe('Sign In', () => {
   test('should display error on invalid credentials', async ({ page }) => {
     const serverErrorMessage = 'Invalid email or password.';
     await page.route('/api/auth/access-tokens', async (route) => {
-      const json = {
-        message: serverErrorMessage,
-      };
-      await route.fulfill({ json, status: 401 });
+      await route.fulfill({
+        json: {
+          message: serverErrorMessage,
+        },
+        status: 401,
+      });
     });
 
     await page.getByLabel('Email').fill('invalid@test.com');
@@ -55,10 +58,12 @@ test.describe('Sign In', () => {
 
   test('should display error on server error', async ({ page }) => {
     await page.route('/api/auth/access-tokens', async (route) => {
-      const json = {
-        message: 'Internal Server Error',
-      };
-      await route.fulfill({ json, status: 500 });
+      await route.fulfill({
+        json: {
+          message: 'Internal Server Error',
+        },
+        status: 500,
+      });
     });
 
     await page.getByLabel('Email').fill('invalid@test.com');
@@ -81,14 +86,15 @@ test.describe('Sign In', () => {
 
   test('should disable submit button while signing in', async ({ page }) => {
     await page.route('/api/auth/access-tokens', async (route) => {
-      const json = {
-        user: {
-          id: '123',
-          email: 'test@test.com',
+      await new Promise((resolve) => setTimeout(resolve, 10));
+      await route.fulfill({
+        json: {
+          user: {
+            id: '123',
+            email: 'test@test.com',
+          },
         },
-      };
-      await new Promise((resolve) => setTimeout(resolve, 100));
-      await route.fulfill({ json });
+      });
     });
 
     await page.getByLabel('Email').fill('test@test.com');

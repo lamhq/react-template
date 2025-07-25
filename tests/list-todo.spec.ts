@@ -38,9 +38,6 @@ test.describe('List Todo Feature', () => {
   test('should show loading on start', async ({ page }) => {
     // Override default API mock to add delay for capturing loading state
     await page.route('/api/todos*', async (route) => {
-      // Delay the response to capture loading state
-      await new Promise((resolve) => setTimeout(resolve, 200));
-
       const url = new URL(route.request().url());
       const offset = parseInt(url.searchParams.get('offset') || '0');
       const limit = parseInt(url.searchParams.get('limit') || '10');
