@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { isUnauthenticatedError } from '../error';
 import type { SignInFormData } from './organisms/SignInForm';
 
 export type SignInResponse = {
@@ -18,6 +19,10 @@ export async function signInMutation(data: SignInFormData): Promise<SignInRespon
     return response.data;
   } catch (error) {
     console.error(error);
-    throw new Error('Failed to sign in');
+    const message =
+      isUnauthenticatedError(error) && error.response?.data?.message
+        ? error.response.data.message
+        : 'Failed to sign in';
+    throw new Error(message);
   }
 }

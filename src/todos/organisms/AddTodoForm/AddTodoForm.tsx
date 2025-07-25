@@ -83,5 +83,5 @@ export default function AddTodoForm() {
     }
   };
 
-  return <TodoFormView onSubmit={handleSubmit} isPending={false} />;
+  return <TodoFormView onSubmit={handleSubmit} />;
 }

@@ -1,2 +1,2 @@
 export { default as ErrorBoundary } from './ErrorBoundary';
-export { withErrorHandling } from './utils';
+export { isApiError, isUnauthenticatedError, withErrorHandling } from './utils';

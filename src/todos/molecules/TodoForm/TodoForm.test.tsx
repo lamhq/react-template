@@ -5,7 +5,6 @@ import TodoForm from './TodoForm';
 describe('TodoForm', () => {
   const defaultProps = {
     onSubmit: vi.fn(),
-    isPending: false,
   };
 
   beforeEach(() => {
@@ -55,19 +54,6 @@ describe('TodoForm', () => {
       await waitFor(() => {
         expect(onSubmit).not.toHaveBeenCalled();
       });
-    });
-  });
-
-  describe('Loading state', () => {
-    it('shows loading state when isPending is true', () => {
-      render(<TodoForm {...defaultProps} isPending={true} />);
-      const button = screen.getByRole('button', { name: 'Adding...' });
-      expect(button).toBeDisabled();
-    });
-    it('does not show loading state when isPending is false', () => {
-      render(<TodoForm {...defaultProps} isPending={false} />);
-      const button = screen.getByRole('button', { name: 'Add' });
-      expect(button).not.toBeDisabled();
     });
   });
 

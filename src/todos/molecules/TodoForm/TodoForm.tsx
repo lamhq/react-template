@@ -9,13 +9,15 @@ type TodoFormData = {
 
 type TodoFormProps = {
   onSubmit: (data: TodoFormData) => void;
-  isPending: boolean;
 };
 
-export default function TodoForm({ onSubmit, isPending }: TodoFormProps) {
-  const { control, handleSubmit, reset } = useForm<TodoFormData>({
+export default function TodoForm({ onSubmit }: TodoFormProps) {
+  const { control, handleSubmit, reset, watch } = useForm<TodoFormData>({
     defaultValues: { title: '' },
   });
+
+  const titleValue = watch('title');
+  const isSubmitDisabled = !titleValue || titleValue.trim() === '';
 
   const handleFormSubmit = (data: TodoFormData) => {
     onSubmit(data);
@@ -42,10 +44,10 @@ export default function TodoForm({ onSubmit, isPending }: TodoFormProps) {
       <Button
         type="submit"
         variant="solid"
-        disabled={isPending}
+        disabled={isSubmitDisabled}
         sx={{ whiteSpace: 'nowrap' }}
       >
-        {isPending ? 'Adding...' : 'Add'}
+        Add
       </Button>
     </Box>
   );
