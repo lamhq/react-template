@@ -23,8 +23,24 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Run TypeScript check
+      - name: Run Linter
         run: pnpm run lint
 
+  format:
+    name: Run formatter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
       - name: Check formatting
-        run: pnpm run format --check
+        run: npx prettier . --check

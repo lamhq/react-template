@@ -1,33 +1,52 @@
 import js from '@eslint/js';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import storybook from 'eslint-plugin-storybook';
-import { globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
-  [
-    globalIgnores(['dist', 'public', 'coverage']),
-    {
-      files: ['**/*.{ts,tsx}'],
-      extends: [
-        js.configs.recommended,
-        tseslint.configs.recommended,
-        eslintPluginPrettierRecommended,
-        reactHooks.configs['recommended-latest'],
-        reactRefresh.configs.vite,
-      ],
-      languageOptions: {
-        ecmaVersion: 2020,
-        globals: globals.browser,
-      },
-      rules: {
-        // use `type` instead of `interface`
-        '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+export default tseslint.config([
+  // globalIgnores([
+  //   'dist',
+  //   'public',
+  //   'coverage',
+  //   'storybook-static',
+  //   'playwright-report',
+  // ]),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.strictTypeChecked,
+      tseslint.configs.stylisticTypeChecked,
+      reactHooks.configs['recommended-latest'],
+      reactRefresh.configs.vite,
+      storybook.configs['flat/recommended'],
+    ],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+      parserOptions: {
+        project: ['./tsconfig.app.json', './tsconfig.node.json'],
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
-  ],
-  storybook.configs['flat/recommended'],
-);
+    rules: {
+      // Enforce consistent usage of type assertions - prefer `type` over `interface` for consistency
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+
+      // Disallow unused variables but allow parameters starting with underscore (common convention for intentionally unused params)
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+
+      // Warn when components export non-component values (can break React Fast Refresh) - allows constant exports
+      'react-refresh/only-export-components': [
+        'warn',
+        { allowConstantExport: true },
+      ],
+
+      '@typescript-eslint/no-non-null-assertion': 'off',
+    },
+  },
+  eslintConfigPrettier,
+]);
