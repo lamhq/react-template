@@ -68,7 +68,7 @@ export default function Sidebar({ menuItems }: SidebarProps) {
             lg: 'translateX(-100%)',
           },
         }}
-        onClick={() => closeSidebar()}
+        onClick={closeSidebar}
       />
 
       <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
@@ -102,7 +102,7 @@ export default function Sidebar({ menuItems }: SidebarProps) {
                 <ListItemButton
                   component={NavListItemButton}
                   to={item.path}
-                  onClick={() => closeSidebar()}
+                  onClick={closeSidebar}
                   label={item.label}
                   icon={item.icon}
                 />

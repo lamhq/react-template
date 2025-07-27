@@ -10,7 +10,7 @@ export default function NotFoundPage() {
   const navigate = useNavigate();
 
   const handleGoHome = () => {
-    navigate(HOME_ROUTE);
+    void navigate(HOME_ROUTE);
   };
 
   return (

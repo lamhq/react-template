@@ -28,7 +28,7 @@ type Story = StoryObj<typeof meta>;
 
 // Helper function to create API errors
 const createApiError = (status: number): ApiError => ({
-  message: `HTTP ${status} Error`,
+  message: `HTTP ${status.toString()} Error`,
   response: { status },
   request: {},
 });

@@ -36,7 +36,7 @@ export async function getTodos(page: number, limit = 10): Promise<[Todo[], numbe
       params: { offset, limit },
     });
 
-    const value = response.headers['x-total-count'];
+    const value = response.headers['x-total-count'] as string;
     const total = typeof value === 'string' ? parseInt(value, 10) : 0;
     const pageCount = Math.ceil(total / limit);
     return [response.data, pageCount];

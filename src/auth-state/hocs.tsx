@@ -22,7 +22,7 @@ export function requireAuth<T extends JSX.IntrinsicAttributes>(
 
   // set friendly component name in devtools
   ProtectedComponent.displayName = `requireAuth(${
-    (Component.displayName ?? Component.name) || 'Component'
+    Component.displayName ?? Component.name
   })`;
   return ProtectedComponent;
 }

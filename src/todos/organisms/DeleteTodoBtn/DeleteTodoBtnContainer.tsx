@@ -67,5 +67,12 @@ export default function DeleteTodoBtnContainer({
     }
   };
 
-  return <DeleteTodoBtn onDelete={handleDelete} isPending={isPending} />;
+  return (
+    <DeleteTodoBtn
+      onDelete={() => {
+        void handleDelete();
+      }}
+      isPending={isPending}
+    />
+  );
 }
