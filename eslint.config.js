@@ -6,13 +6,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config([
-  // globalIgnores([
-  //   'dist',
-  //   'public',
-  //   'coverage',
-  //   'storybook-static',
-  //   'playwright-report',
-  // ]),
+  globalIgnores(['public']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -21,7 +15,6 @@ export default tseslint.config([
       tseslint.configs.stylisticTypeChecked,
       reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
-      storybook.configs['flat/recommended'],
     ],
     languageOptions: {
       ecmaVersion: 2020,
@@ -48,5 +41,6 @@ export default tseslint.config([
       '@typescript-eslint/no-non-null-assertion': 'off',
     },
   },
+  storybook.configs['flat/recommended'],
   eslintConfigPrettier,
 ]);

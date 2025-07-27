@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "prepare": "node .husky/install.mjs",
+    "prepare": "node .husky/install.js",
     "test": "vitest",
     "e2e-test": "playwright test"
   },
