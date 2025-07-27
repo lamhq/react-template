@@ -1,13 +1,22 @@
+import { includeIgnoreFile } from '@eslint/compat';
 import js from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import storybook from 'eslint-plugin-storybook';
+import { globalIgnores } from 'eslint/config';
 import globals from 'globals';
+import { fileURLToPath } from 'node:url';
 import tseslint from 'typescript-eslint';
 
+const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url));
+
+// export default defineConfig([
 export default tseslint.config([
-  globalIgnores(['public']),
+  includeIgnoreFile(gitignorePath, 'Imported .gitignore patterns'),
+  globalIgnores(['public'], 'Ignore auto-generated code'),
   {
+    name: 'TypeScript files',
     files: ['**/*.{ts,tsx}'],
     extends: [
       js.configs.recommended,

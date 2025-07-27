@@ -14,11 +14,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# editor directories and files
-.idea
-*.sublime-project
-*.sublime-workspace
-
 # macOS
 .DS_Store
 
@@ -31,7 +26,6 @@ storybook-static
 coverage/
 
 # Playwright
-node_modules/
 /test-results/
 /playwright-report/
 /blob-report/
