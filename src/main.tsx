@@ -42,3 +42,4 @@ function greet(name: string) {
 
 const userName = 42; // number, not string
 console.log(greet(userName));
+console.log(greet(111));
