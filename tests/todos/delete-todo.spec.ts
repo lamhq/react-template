@@ -3,9 +3,9 @@ import { setupPage } from '../setup';
 
 // Mock data: 3 todo items
 const mockTodos = Array.from({ length: 3 }, (_, i) => ({
-  id: `todo-${i + 1}`,
-  title: `Todo item ${i + 1}`,
-  description: `Description for todo ${i + 1}`,
+  id: `todo-${(i + 1).toString()}`,
+  title: `Todo item ${(i + 1).toString()}`,
+  description: `Description for todo ${(i + 1).toString()}`,
   status: i % 3 === 0 ? 'completed' : i % 3 === 1 ? 'in_progress' : 'pending',
   createdAt: new Date(Date.now() - i * 1000 * 60 * 60).toISOString(),
   updatedAt: new Date(Date.now() - i * 1000 * 60 * 60).toISOString(),

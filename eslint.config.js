@@ -23,7 +23,7 @@ export default defineConfig([
     },
   },
   {
-    name: 'Javascript',
+    name: 'JavaScript',
     files: ['**/*.{js,ts,jsx,tsx}'],
     extends: [js.configs.recommended],
   },

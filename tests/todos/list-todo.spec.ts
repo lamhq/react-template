@@ -3,9 +3,9 @@ import { setupPage } from '../setup';
 
 // Mock data: 11 todo items to test pagination (10 per page + 1 extra)
 const mockTodos = Array.from({ length: 11 }, (_, i) => ({
-  id: `todo-${i + 1}`,
-  title: `Todo item ${i + 1}`,
-  description: `Description for todo ${i + 1}`,
+  id: `todo-${(i + 1).toString()}`,
+  title: `Todo item ${(i + 1).toString()}`,
+  description: `Description for todo ${(i + 1).toString()}`,
   status: i % 3 === 0 ? 'completed' : i % 3 === 1 ? 'in_progress' : 'pending',
   createdAt: new Date(Date.now() - i * 1000 * 60 * 60).toISOString(),
   updatedAt: new Date(Date.now() - i * 1000 * 60 * 60).toISOString(),
@@ -16,8 +16,8 @@ test.describe('List Todo Feature', () => {
     // Default Mock API response with 11 todos (can be overridden in individual tests)
     await page.route('/api/todos*', async (route) => {
       const url = new URL(route.request().url());
-      const offset = parseInt(url.searchParams.get('offset') || '0');
-      const limit = parseInt(url.searchParams.get('limit') || '10');
+      const offset = parseInt(url.searchParams.get('offset') ?? '0');
+      const limit = parseInt(url.searchParams.get('limit') ?? '10');
       const paginatedTodos = mockTodos.slice(offset, offset + limit);
       await route.fulfill({
         json: paginatedTodos,
@@ -35,8 +35,8 @@ test.describe('List Todo Feature', () => {
     // Override default API mock to add delay for capturing loading state
     await page.route('/api/todos*', async (route) => {
       const url = new URL(route.request().url());
-      const offset = parseInt(url.searchParams.get('offset') || '0');
-      const limit = parseInt(url.searchParams.get('limit') || '10');
+      const offset = parseInt(url.searchParams.get('offset') ?? '0');
+      const limit = parseInt(url.searchParams.get('limit') ?? '10');
       const paginatedTodos = mockTodos.slice(offset, offset + limit);
       await route.fulfill({
         json: paginatedTodos,
@@ -57,7 +57,7 @@ test.describe('List Todo Feature', () => {
     // Should display the first 10 todo items (first page)
     for (let i = 0; i < 10; i++) {
       await expect(
-        page.getByText(`Todo item ${i + 1}`, { exact: true }),
+        page.getByText(`Todo item ${(i + 1).toString()}`, { exact: true }),
       ).toBeVisible();
     }
 
