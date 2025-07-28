@@ -27,7 +27,9 @@ export default function Pagination({ count, page, onChange }: PaginationProps) {
       sx={{ justifyContent: 'center' }}
     >
       <IconButton
-        onClick={(e) => onChange(e, page - 1)}
+        onClick={(e) => {
+          onChange(e, page - 1);
+        }}
         disabled={page <= 1}
         aria-label="Previous Page"
       >
@@ -36,7 +38,9 @@ export default function Pagination({ count, page, onChange }: PaginationProps) {
       {pages.map((p) => (
         <Button
           key={p}
-          onClick={(e) => onChange(e, p)}
+          onClick={(e) => {
+            onChange(e, p);
+          }}
           aria-current={p === page ? 'page' : undefined}
           variant={p === page ? 'solid' : 'outlined'}
           color={p === page ? 'primary' : 'neutral'}
@@ -46,7 +50,9 @@ export default function Pagination({ count, page, onChange }: PaginationProps) {
         </Button>
       ))}
       <IconButton
-        onClick={(e) => onChange(e, page + 1)}
+        onClick={(e) => {
+          onChange(e, page + 1);
+        }}
         disabled={page >= totalPages}
         aria-label="Next Page"
       >

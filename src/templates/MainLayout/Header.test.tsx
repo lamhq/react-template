@@ -18,7 +18,7 @@ describe('Header', () => {
     const button = screen.getByRole('button');
     expect(button).toBeInTheDocument();
     // The MenuIcon should be rendered (by aria-label or svg)
-    expect(button.querySelector('svg')).toBeInTheDocument();
+    expect(screen.getByTestId('MenuIcon')).toBeInTheDocument();
   });
 
   it('calls toggleSidebar when menu button is clicked', () => {

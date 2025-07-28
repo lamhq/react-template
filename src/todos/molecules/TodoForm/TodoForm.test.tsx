@@ -29,8 +29,8 @@ describe('TodoForm', () => {
       fireEvent.click(button);
       await waitFor(() => {
         expect(onSubmit).toHaveBeenCalledTimes(1);
-        expect(onSubmit).toHaveBeenCalledWith({ title: 'New Todo' });
       });
+      expect(onSubmit).toHaveBeenCalledWith({ title: 'New Todo' });
     });
 
     it('clears input after submit', async () => {

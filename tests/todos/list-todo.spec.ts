@@ -3,9 +3,9 @@ import { setupPage } from '../setup';
 
 // Mock data: 11 todo items to test pagination (10 per page + 1 extra)
 const mockTodos = Array.from({ length: 11 }, (_, i) => ({
-  id: `todo-${i + 1}`,
-  title: `Todo item ${i + 1}`,
-  description: `Description for todo ${i + 1}`,
+  id: `todo-${(i + 1).toString()}`,
+  title: `Todo item ${(i + 1).toString()}`,
+  description: `Description for todo ${(i + 1).toString()}`,
   status: i % 3 === 0 ? 'completed' : i % 3 === 1 ? 'in_progress' : 'pending',
   createdAt: new Date(Date.now() - i * 1000 * 60 * 60).toISOString(),
   updatedAt: new Date(Date.now() - i * 1000 * 60 * 60).toISOString(),
@@ -16,8 +16,8 @@ test.describe('List Todo Feature', () => {
     // Default Mock API response with 11 todos (can be overridden in individual tests)
     await page.route('/api/todos*', async (route) => {
       const url = new URL(route.request().url());
-      const offset = parseInt(url.searchParams.get('offset') || '0');
-      const limit = parseInt(url.searchParams.get('limit') || '10');
+      const offset = parseInt(url.searchParams.get('offset') ?? '0');
+      const limit = parseInt(url.searchParams.get('limit') ?? '10');
       const paginatedTodos = mockTodos.slice(offset, offset + limit);
       await route.fulfill({
         json: paginatedTodos,
@@ -35,8 +35,8 @@ test.describe('List Todo Feature', () => {
     // Override default API mock to add delay for capturing loading state
     await page.route('/api/todos*', async (route) => {
       const url = new URL(route.request().url());
-      const offset = parseInt(url.searchParams.get('offset') || '0');
-      const limit = parseInt(url.searchParams.get('limit') || '10');
+      const offset = parseInt(url.searchParams.get('offset') ?? '0');
+      const limit = parseInt(url.searchParams.get('limit') ?? '10');
       const paginatedTodos = mockTodos.slice(offset, offset + limit);
       await route.fulfill({
         json: paginatedTodos,
@@ -52,17 +52,17 @@ test.describe('List Todo Feature', () => {
 
   test('should display items from the first page by default', async ({ page }) => {
     // Wait for loading to complete
-    await expect(page.getByRole('progressbar')).not.toBeVisible();
+    await expect(page.getByRole('progressbar')).toBeHidden();
 
     // Should display the first 10 todo items (first page)
     for (let i = 0; i < 10; i++) {
       await expect(
-        page.getByText(`Todo item ${i + 1}`, { exact: true }),
+        page.getByText(`Todo item ${(i + 1).toString()}`, { exact: true }),
       ).toBeVisible();
     }
 
     // Should not display the 11th item on first page
-    await expect(page.getByText('Todo item 11')).not.toBeVisible();
+    await expect(page.getByText('Todo item 11')).toBeHidden();
   });
 
   test('should display empty state if no items returned from server', async ({
@@ -79,7 +79,7 @@ test.describe('List Todo Feature', () => {
     });
 
     // Wait for loading to complete
-    await expect(page.getByRole('progressbar')).not.toBeVisible();
+    await expect(page.getByRole('progressbar')).toBeHidden();
 
     // Should display empty state message
     await expect(page.getByText(/no todos found/i)).toBeVisible();
@@ -87,14 +87,14 @@ test.describe('List Todo Feature', () => {
 
   test('should display 2 pagination items', async ({ page }) => {
     // Wait for loading to complete
-    await expect(page.getByRole('progressbar')).not.toBeVisible();
+    await expect(page.getByRole('progressbar')).toBeHidden();
 
     // Should display pagination with 2 page buttons
     await expect(page.getByRole('button', { name: '1' })).toBeVisible();
     await expect(page.getByRole('button', { name: '2' })).toBeVisible();
 
     // Should not have a third page button
-    await expect(page.getByRole('button', { name: '3' })).not.toBeVisible();
+    await expect(page.getByRole('button', { name: '3' })).toBeHidden();
 
     // First page should be active/selected
     await expect(page.getByRole('button', { name: '1' })).toHaveAttribute(
@@ -105,20 +105,20 @@ test.describe('List Todo Feature', () => {
 
   test('should display items in page 2 when clicking page 2', async ({ page }) => {
     // Wait for loading to complete
-    await expect(page.getByRole('progressbar')).not.toBeVisible();
+    await expect(page.getByRole('progressbar')).toBeHidden();
 
     // Click on page 2
     await page.getByRole('button', { name: '2' }).click();
 
     // Wait for new data to load
-    await expect(page.getByRole('progressbar')).not.toBeVisible();
+    await expect(page.getByRole('progressbar')).toBeHidden();
 
     // Should display only the 11th item (page 2 content)
     await expect(page.getByText('Todo item 11')).toBeVisible();
 
     // Should not display items from page 1
-    await expect(page.getByText('Todo item 1', { exact: true })).not.toBeVisible();
-    await expect(page.getByText('Todo item 10', { exact: true })).not.toBeVisible();
+    await expect(page.getByText('Todo item 1', { exact: true })).toBeHidden();
+    await expect(page.getByText('Todo item 10', { exact: true })).toBeHidden();
 
     // Page 2 should be active/selected
     await expect(page.getByRole('button', { name: '2' })).toHaveAttribute(

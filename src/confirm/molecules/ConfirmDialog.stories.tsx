@@ -1,47 +1,13 @@
-import type { Decorator, Meta, StoryContext, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import type { ConfirmDialogOptions } from '../types';
 import ConfirmDialog from './ConfirmDialog';
-
-const withDialogButton: Decorator = (Story, context: StoryContext) => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  return (
-    <div>
-      <button onClick={handleOpen} style={{ marginBottom: 16 }}>
-        Show Dialog
-      </button>
-      <Story
-        {...context}
-        args={{
-          ...context.args,
-          open,
-          onCancel: () => {
-            if (typeof context.args.onCancel === 'function') {
-              context.args.onCancel();
-            }
-            handleClose();
-          },
-          onConfirm: () => {
-            if (typeof context.args.onConfirm === 'function') {
-              context.args.onConfirm();
-            }
-            handleClose();
-          },
-        }}
-      />
-    </div>
-  );
-};
 
 const meta = {
   component: ConfirmDialog,
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
   argTypes: {
     open: {
       description: 'Whether the dialog is open',
@@ -60,7 +26,6 @@ const meta = {
       control: false,
     },
   },
-  decorators: [withDialogButton],
 } satisfies Meta<typeof ConfirmDialog>;
 
 export default meta;
@@ -76,7 +41,7 @@ const defaultOptions: ConfirmDialogOptions = {
 
 export const Default: Story = {
   args: {
-    open: false,
+    open: true,
     options: defaultOptions,
     onCancel: fn(),
     onConfirm: fn(),
@@ -92,7 +57,7 @@ export const Default: Story = {
 
 export const CustomContent: Story = {
   args: {
-    open: false,
+    open: true,
     options: {
       ...defaultOptions,
       title: 'Delete item?',

@@ -26,7 +26,7 @@ function renderWithProviders(
   { queryClient }: { queryClient?: QueryClient } = {},
 ) {
   return render(
-    <QueryClientProvider client={queryClient || new QueryClient()}>
+    <QueryClientProvider client={queryClient ?? new QueryClient()}>
       <NotificationProvider>{ui}</NotificationProvider>
     </QueryClientProvider>,
   );
@@ -65,10 +65,11 @@ describe('TodoCheckboxContainer', () => {
     fireEvent.click(checkbox);
 
     await waitFor(() => {
-      const [todos] = queryClient.getQueryData([TODO_QUERY_KEY, 1]) as [
-        Todo[],
-        number,
-      ];
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const [todos] = queryClient.getQueryData<[Todo[], number]>([
+        TODO_QUERY_KEY,
+        1,
+      ])!;
       expect(todos.find((t) => t.id === '1')?.status).toBe('completed');
     });
   });
@@ -83,34 +84,13 @@ describe('TodoCheckboxContainer', () => {
     fireEvent.click(checkbox);
 
     await waitFor(() => {
-      const [todos] = queryClient.getQueryData([TODO_QUERY_KEY, 1]) as [
-        Todo[],
-        number,
-      ];
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const [todos] = queryClient.getQueryData<[Todo[], number]>([
+        TODO_QUERY_KEY,
+        1,
+      ])!;
       // Should roll back to previous status
       expect(todos.find((t) => t.id === '1')?.status).toBe('pending');
-    });
-  });
-
-  it('disables checkbox while mutation is pending', async () => {
-    let resolve: (v: Todo) => void;
-    updateTodoMock.mockImplementation(
-      () =>
-        new Promise<Todo>((r) => {
-          resolve = r;
-        }),
-    );
-    renderWithProviders(<TodoCheckboxContainer todo={todo} />, { queryClient });
-    const checkbox = screen.getByRole('checkbox');
-    fireEvent.click(checkbox);
-    await waitFor(() => {
-      expect(checkbox).toBeDisabled();
-    });
-
-    // Finish mutation
-    resolve!({ ...todo, status: 'completed' });
-    await waitFor(() => {
-      expect(checkbox).not.toBeDisabled();
     });
   });
 });

@@ -92,12 +92,7 @@ describe('ConfirmDialog', () => {
           options={defaultOptions}
         />,
       );
-      // The Modal backdrop has role="presentation" in Joy UI
-      const modalRoot = screen.getByRole('presentation');
-      const backdrop = modalRoot.querySelector('.MuiModal-backdrop');
-      if (!backdrop) {
-        throw new Error('Backdrop not found');
-      }
+      const backdrop = screen.getByTestId('confirm-dialog-backdrop');
       fireEvent.click(backdrop);
 
       expect(onCancel).toHaveBeenCalledTimes(1);

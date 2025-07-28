@@ -52,7 +52,7 @@ test.describe('Add Todo Feature', () => {
 
   test('should call create todo API with correct parameters', async ({ page }) => {
     await page.route('/api/todos', async (route) => {
-      const requestBody = await route.request().postDataJSON();
+      const requestBody = route.request().postDataJSON() as Record<string, string>;
       const method = route.request().method();
       if (method === 'POST') {
         await route.fulfill({
@@ -66,8 +66,8 @@ test.describe('Add Todo Feature', () => {
         });
       }
 
-      await expect(method).toEqual('POST');
-      await expect(requestBody).toMatchObject({
+      expect(method).toEqual('POST');
+      expect(requestBody).toMatchObject({
         title: 'Test Todo',
         status: 'pending',
       });
@@ -97,7 +97,7 @@ test.describe('Add Todo Feature', () => {
     await expect(page.getByText('Failed to create todo')).toBeVisible();
 
     // Optimistically added item should be removed from list
-    await expect(page.getByText('Failed Todo')).not.toBeVisible();
+    await expect(page.getByText('Failed Todo')).toBeHidden();
   });
 
   test('should disable submit when input is empty', async ({ page }) => {

@@ -3,9 +3,9 @@ import { setupPage } from '../setup';
 
 // Mock data: 3 todo items
 const mockTodos = Array.from({ length: 3 }, (_, i) => ({
-  id: `todo-${i + 1}`,
-  title: `Todo item ${i + 1}`,
-  description: `Description for todo ${i + 1}`,
+  id: `todo-${(i + 1).toString()}`,
+  title: `Todo item ${(i + 1).toString()}`,
+  description: `Description for todo ${(i + 1).toString()}`,
   status: i % 3 === 0 ? 'completed' : i % 3 === 1 ? 'in_progress' : 'pending',
   createdAt: new Date(Date.now() - i * 1000 * 60 * 60).toISOString(),
   updatedAt: new Date(Date.now() - i * 1000 * 60 * 60).toISOString(),
@@ -57,7 +57,7 @@ test.describe('Delete Todo Feature', () => {
     await page.getByRole('button', { name: 'Delete' }).click();
 
     // The first todo should be removed from the list
-    await expect(page.getByText('Todo item 1', { exact: true })).not.toBeVisible();
+    await expect(page.getByText('Todo item 1', { exact: true })).toBeHidden();
 
     // Other todos should still be visible
     await expect(page.getByText('Todo item 2', { exact: true })).toBeVisible();
@@ -117,6 +117,6 @@ test.describe('Delete Todo Feature', () => {
     await expect(page.getByText('Todo item 3', { exact: true })).toBeVisible();
 
     // Dialog should be closed
-    await expect(page.getByRole('dialog')).not.toBeVisible();
+    await expect(page.getByRole('dialog')).toBeHidden();
   });
 });

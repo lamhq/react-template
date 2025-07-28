@@ -10,7 +10,7 @@ export default function NotFoundPage() {
   const navigate = useNavigate();
 
   const handleGoHome = () => {
-    navigate(HOME_ROUTE);
+    void navigate(HOME_ROUTE);
   };
 
   return (
@@ -32,7 +32,7 @@ export default function NotFoundPage() {
           Page Not Found
         </Typography>
         <Typography level="body-md" color="neutral" sx={{ mb: 3 }}>
-          The page you're looking for doesn't exist or has been moved.
+          The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </Typography>
         <Button variant="solid" size="lg" onClick={handleGoHome} sx={{ mt: 2 }}>
           Go to Home

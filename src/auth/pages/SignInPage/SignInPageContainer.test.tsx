@@ -84,8 +84,8 @@ describe('SignInPageContainer', () => {
         username: email,
         password: password,
       });
-      expect(showSuccessMock).toHaveBeenCalledWith('Successfully signed in!');
     });
+    expect(showSuccessMock).toHaveBeenCalledWith('Successfully signed in!');
   });
 
   it('shows error notification on failed sign in', async () => {

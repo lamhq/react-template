@@ -31,7 +31,7 @@ export default function TodoListContainer() {
 
   return (
     <TodoList
-      todos={data?.[0] || []}
+      todos={data?.[0] ?? []}
       isLoading={isLoading}
       isFetching={isFetching}
       page={page}

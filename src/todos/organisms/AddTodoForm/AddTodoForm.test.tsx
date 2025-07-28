@@ -32,7 +32,7 @@ function renderWithProviders(
   { queryClient }: { queryClient?: QueryClient } = {},
 ) {
   return render(
-    <QueryClientProvider client={queryClient || new QueryClient()}>
+    <QueryClientProvider client={queryClient ?? new QueryClient()}>
       {ui}
     </QueryClientProvider>,
   );
@@ -148,12 +148,14 @@ describe('AddTodoForm', () => {
 
     // Optimistic update: temp todo should be in cache
     await waitFor(() => {
-      const [todos] = queryClient.getQueryData(['todos', 1]) as [Todo[], number];
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const [todos] = queryClient.getQueryData<[Todo[], number]>(['todos', 1])!;
       expect(todos[0].title).toBe('Optimistic');
     });
     // After mutation resolves, temp todo replaced by real one
     await waitFor(() => {
-      const [todos] = queryClient.getQueryData(['todos', 1]) as [Todo[], number];
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const [todos] = queryClient.getQueryData<[Todo[], number]>(['todos', 1])!;
       expect(todos[0].id).toBe('2');
     });
   });
