@@ -8,39 +8,40 @@ on:
 
 jobs:
   lint:
-    name: Run linter
+    name: Check code style
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Install dependencies
-        run: pnpm install
+      - name: Setup project environment
+        uses: ./.github/actions/setup
 
       - name: Run Linter
         run: pnpm run lint
 
   format:
-    name: Run formatter
+    name: Check formatting
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
+      - name: Setup project environment
+        uses: ./.github/actions/setup
 
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Check formatting
+      - name: Run Prettier
         run: npx prettier . --check
+
+  type-check:
+    name: Check type error
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup project environment
+        uses: ./.github/actions/setup
+
+      - name: Run tsc
+        run: npx tsb -b --noEmit
