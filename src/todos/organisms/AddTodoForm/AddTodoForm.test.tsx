@@ -148,11 +148,13 @@ describe('AddTodoForm', () => {
 
     // Optimistic update: temp todo should be in cache
     await waitFor(() => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const [todos] = queryClient.getQueryData<[Todo[], number]>(['todos', 1])!;
       expect(todos[0].title).toBe('Optimistic');
     });
     // After mutation resolves, temp todo replaced by real one
     await waitFor(() => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const [todos] = queryClient.getQueryData<[Todo[], number]>(['todos', 1])!;
       expect(todos[0].id).toBe('2');
     });

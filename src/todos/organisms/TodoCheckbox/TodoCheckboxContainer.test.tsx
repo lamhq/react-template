@@ -65,6 +65,7 @@ describe('TodoCheckboxContainer', () => {
     fireEvent.click(checkbox);
 
     await waitFor(() => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const [todos] = queryClient.getQueryData<[Todo[], number]>([
         TODO_QUERY_KEY,
         1,
@@ -83,6 +84,7 @@ describe('TodoCheckboxContainer', () => {
     fireEvent.click(checkbox);
 
     await waitFor(() => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const [todos] = queryClient.getQueryData<[Todo[], number]>([
         TODO_QUERY_KEY,
         1,

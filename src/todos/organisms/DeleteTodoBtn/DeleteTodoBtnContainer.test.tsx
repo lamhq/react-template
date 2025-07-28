@@ -90,6 +90,7 @@ describe('DeleteTodoBtnContainer', () => {
     });
     // Optimistic update: todo should be removed from cache
     await waitFor(() => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const [todos] = queryClient.getQueryData<[Todo[], number]>([
         TODO_QUERY_KEY,
         1,
@@ -120,6 +121,7 @@ describe('DeleteTodoBtnContainer', () => {
       expect(showErrorMock).toHaveBeenCalledWith('Failed to delete');
     });
     // Should roll back to previous todos
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const [todos] = queryClient.getQueryData<[Todo[], number]>([TODO_QUERY_KEY, 1])!;
     expect(todos.find((t) => t.id === '1')).toBeDefined();
   });

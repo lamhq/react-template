@@ -51,9 +51,6 @@ export default defineConfig([
 
       // Disallow unused variables but allow parameters starting with underscore (common convention for intentionally unused params)
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-
-      // used in unit tests, where mocking is required
-      '@typescript-eslint/no-non-null-assertion': 'off',
     },
   },
   {
