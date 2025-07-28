@@ -35,11 +35,3 @@ createRoot(rootElement).render(
     </CssVarsProvider>
   </StrictMode>,
 );
-
-function greet(name: string) {
-  return 'Hello, ' + name.toUpperCase();
-}
-
-const userName = 42; // number, not string
-console.log(greet(userName));
-console.log(greet(111));
