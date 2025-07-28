@@ -97,7 +97,7 @@ test.describe('Add Todo Feature', () => {
     await expect(page.getByText('Failed to create todo')).toBeVisible();
 
     // Optimistically added item should be removed from list
-    await expect(page.getByText('Failed Todo')).not.toBeVisible();
+    await expect(page.getByText('Failed Todo')).toBeHidden();
   });
 
   test('should disable submit when input is empty', async ({ page }) => {

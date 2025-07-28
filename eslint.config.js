@@ -2,6 +2,7 @@ import { includeIgnoreFile } from '@eslint/compat';
 import js from '@eslint/js';
 import vitest from '@vitest/eslint-plugin';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
+import playwright from 'eslint-plugin-playwright';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
@@ -74,14 +75,14 @@ export default defineConfig([
     },
   },
   {
-    name: 'Vitest',
+    name: 'Vitest + React Testing Library',
     files: ['src/**/*.test.{ts,tsx}'],
-    extends: [vitest.configs.recommended],
+    extends: [vitest.configs.recommended, testingLibrary.configs['flat/react']],
   },
   {
-    name: 'React Testing Library',
-    files: ['src/**/*.test.{ts,tsx}'],
-    extends: [testingLibrary.configs['flat/react']],
+    name: 'Playwright Tests',
+    files: ['tests/**/*.spec.ts'],
+    extends: [playwright.configs['flat/recommended']],
   },
   {
     name: 'Storybook',
