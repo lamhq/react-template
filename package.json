@@ -73,9 +73,5 @@
     "workerDirectory": [
       "public"
     ]
-  },
-  "lint-staged": {
-    "*.ts?(x)": "eslint --fix",
-    "*.--write": "prettier --write"
   }
 }
