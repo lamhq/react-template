@@ -31,7 +31,7 @@ export default function TodoList({
 
   return (
     <Box
-      role="list"
+      data-testid="todo-list"
       sx={
         isFetching
           ? { filter: 'blur(1.5px)', transition: 'filter 0.3s' }

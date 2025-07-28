@@ -118,12 +118,9 @@ describe('DeleteTodoBtnContainer', () => {
 
     await waitFor(() => {
       expect(showErrorMock).toHaveBeenCalledWith('Failed to delete');
-      // Should roll back to previous todos
-      const [todos] = queryClient.getQueryData<[Todo[], number]>([
-        TODO_QUERY_KEY,
-        1,
-      ])!;
-      expect(todos.find((t) => t.id === '1')).toBeDefined();
     });
+    // Should roll back to previous todos
+    const [todos] = queryClient.getQueryData<[Todo[], number]>([TODO_QUERY_KEY, 1])!;
+    expect(todos.find((t) => t.id === '1')).toBeDefined();
   });
 });

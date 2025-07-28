@@ -168,14 +168,14 @@ describe('SignInForm', () => {
 
       await waitFor(() => {
         expect(onSubmit).toHaveBeenCalledTimes(1);
-        expect(onSubmit).toHaveBeenCalledWith(
-          {
-            username: 'test@example.com',
-            password: 'password123',
-          },
-          expect.any(Object),
-        );
       });
+      expect(onSubmit).toHaveBeenCalledWith(
+        {
+          username: 'test@example.com',
+          password: 'password123',
+        },
+        expect.any(Object),
+      );
     });
 
     it('does not call onSubmit when form is invalid', async () => {

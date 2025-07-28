@@ -88,8 +88,7 @@ describe('TodoList', () => {
       />,
     );
     // The blur is a style, so we check for the style attribute
-    const list = screen.getByText('Buy groceries').closest('div[role="list"]');
-    expect(list).toHaveStyle({ filter: 'blur(1.5px)' });
+    expect(screen.getByTestId('todo-list')).toHaveStyle({ filter: 'blur(1.5px)' });
   });
 
   it('renders pagination when pageCount > 1', () => {

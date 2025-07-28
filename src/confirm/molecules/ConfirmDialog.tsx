@@ -39,7 +39,12 @@ export default function ConfirmDialog({
   } = { ...DEFAULT_OPTIONS, ...options };
 
   return (
-    <Modal open={open} onClose={onCancel} {...dialogProps}>
+    <Modal
+      open={open}
+      onClose={onCancel}
+      slotProps={{ backdrop: { 'data-testid': 'confirm-dialog-backdrop' } }}
+      {...dialogProps}
+    >
       <ModalDialog>
         <ModalClose />
         {title && (

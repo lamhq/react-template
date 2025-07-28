@@ -10,7 +10,7 @@ describe('LoadingFallback', () => {
 
   it('is centered within its container', () => {
     render(<LoadingFallback />);
-    const container = screen.getByRole('progressbar').closest('div');
+    const container = screen.getByTestId('loading-fallback-container');
 
     // Check that the container has flexbox centering properties
     expect(container).toHaveStyle({
@@ -22,7 +22,7 @@ describe('LoadingFallback', () => {
 
   it('has the correct height', () => {
     render(<LoadingFallback />);
-    const container = screen.getByRole('progressbar').closest('div');
+    const container = screen.getByTestId('loading-fallback-container');
     expect(container).toHaveStyle({ height: '200px' });
   });
 });
