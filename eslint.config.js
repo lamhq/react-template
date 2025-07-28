@@ -1,33 +1,41 @@
 import { includeIgnoreFile } from '@eslint/compat';
 import js from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
+import reactPlugin from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import storybook from 'eslint-plugin-storybook';
-import { globalIgnores } from 'eslint/config';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import { fileURLToPath } from 'node:url';
 import tseslint from 'typescript-eslint';
 
 const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url));
 
-// export default defineConfig([
-export default tseslint.config([
-  includeIgnoreFile(gitignorePath, 'Imported .gitignore patterns'),
+export default defineConfig([
+  includeIgnoreFile(gitignorePath, 'Imported `.gitignore` patterns'),
   globalIgnores(['public'], 'Ignore auto-generated code'),
   {
-    name: 'TypeScript files',
+    name: 'Config files',
+    files: ['**/*.js'],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
+  {
+    name: 'Javascript',
+    files: ['**/*.{js,ts,jsx,tsx}'],
+    extends: [js.configs.recommended],
+  },
+  {
+    name: 'TypeScript',
     files: ['**/*.{ts,tsx}'],
     extends: [
-      js.configs.recommended,
       tseslint.configs.strictTypeChecked,
       tseslint.configs.stylisticTypeChecked,
-      reactHooks.configs['recommended-latest'],
-      reactRefresh.configs.vite,
     ],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
       parserOptions: {
         project: ['./tsconfig.app.json', './tsconfig.node.json'],
         projectService: true,
@@ -41,14 +49,21 @@ export default tseslint.config([
       // Disallow unused variables but allow parameters starting with underscore (common convention for intentionally unused params)
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
 
-      // Warn when components export non-component values (can break React Fast Refresh) - allows constant exports
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
-
+      // used in unit tests, where mocking is required
       '@typescript-eslint/no-non-null-assertion': 'off',
     },
+  },
+  {
+    name: 'TypeScript React',
+    files: ['**/*.tsx'],
+    languageOptions: {
+      globals: globals.browser,
+    },
+    extends: [
+      reactPlugin.configs.flat.recommended,
+      reactHooks.configs['recommended-latest'],
+      reactRefresh.configs.vite,
+    ],
   },
   storybook.configs['flat/recommended'],
   eslintConfigPrettier,
