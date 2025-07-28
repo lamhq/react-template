@@ -44,4 +44,4 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run tsc
-        run: npx tsb -b --noEmit
+        run: npx tsc -b --noEmit
