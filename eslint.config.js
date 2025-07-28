@@ -26,9 +26,9 @@ export default defineConfig([
     },
   },
   {
+    ...js.configs.recommended,
     name: 'JavaScript',
     files: ['**/*.{js,ts,jsx,tsx}'],
-    extends: [js.configs.recommended],
   },
   {
     name: 'TypeScript',
@@ -80,14 +80,10 @@ export default defineConfig([
     extends: [vitest.configs.recommended, testingLibrary.configs['flat/react']],
   },
   {
+    ...playwright.configs['flat/recommended'],
     name: 'Playwright Tests',
     files: ['tests/**/*.spec.ts'],
-    extends: [playwright.configs['flat/recommended']],
   },
-  {
-    name: 'Storybook',
-    files: ['**/*.stories.{jsx,tsx}'],
-    extends: [storybook.configs['flat/recommended']],
-  },
+  ...storybook.configs['flat/recommended'],
   eslintConfigPrettier,
 ]);
