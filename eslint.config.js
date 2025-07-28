@@ -65,6 +65,10 @@ export default defineConfig([
       reactRefresh.configs.vite,
     ],
   },
-  storybook.configs['flat/recommended'],
+  {
+    name: 'Storybook',
+    files: ['**/*.stories.{jsx,tsx}'],
+    extends: [storybook.configs['flat/recommended']],
+  },
   eslintConfigPrettier,
 ]);
