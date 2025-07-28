@@ -1,10 +1,12 @@
 import { includeIgnoreFile } from '@eslint/compat';
 import js from '@eslint/js';
+import vitest from '@vitest/eslint-plugin';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import storybook from 'eslint-plugin-storybook';
+import testingLibrary from 'eslint-plugin-testing-library';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import { fileURLToPath } from 'node:url';
@@ -59,11 +61,27 @@ export default defineConfig([
     languageOptions: {
       globals: globals.browser,
     },
+    settings: {
+      react: { version: 'detect' },
+    },
     extends: [
       reactPlugin.configs.flat.recommended,
       reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
     ],
+    rules: {
+      'react/react-in-jsx-scope': 'off',
+    },
+  },
+  {
+    name: 'Vitest',
+    files: ['src/**/*.test.{ts,tsx}'],
+    extends: [vitest.configs.recommended],
+  },
+  {
+    name: 'React Testing Library',
+    files: ['src/**/*.test.{ts,tsx}'],
+    extends: [testingLibrary.configs['flat/react']],
   },
   {
     name: 'Storybook',
