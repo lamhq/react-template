@@ -57,7 +57,7 @@ test.describe('Delete Todo Feature', () => {
     await page.getByRole('button', { name: 'Delete' }).click();
 
     // The first todo should be removed from the list
-    await expect(page.getByText('Todo item 1', { exact: true })).not.toBeVisible();
+    await expect(page.getByText('Todo item 1', { exact: true })).toBeHidden();
 
     // Other todos should still be visible
     await expect(page.getByText('Todo item 2', { exact: true })).toBeVisible();
@@ -117,6 +117,6 @@ test.describe('Delete Todo Feature', () => {
     await expect(page.getByText('Todo item 3', { exact: true })).toBeVisible();
 
     // Dialog should be closed
-    await expect(page.getByRole('dialog')).not.toBeVisible();
+    await expect(page.getByRole('dialog')).toBeHidden();
   });
 });

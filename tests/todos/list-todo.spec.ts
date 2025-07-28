@@ -52,7 +52,7 @@ test.describe('List Todo Feature', () => {
 
   test('should display items from the first page by default', async ({ page }) => {
     // Wait for loading to complete
-    await expect(page.getByRole('progressbar')).not.toBeVisible();
+    await expect(page.getByRole('progressbar')).toBeHidden();
 
     // Should display the first 10 todo items (first page)
     for (let i = 0; i < 10; i++) {
@@ -62,7 +62,7 @@ test.describe('List Todo Feature', () => {
     }
 
     // Should not display the 11th item on first page
-    await expect(page.getByText('Todo item 11')).not.toBeVisible();
+    await expect(page.getByText('Todo item 11')).toBeHidden();
   });
 
   test('should display empty state if no items returned from server', async ({
@@ -79,7 +79,7 @@ test.describe('List Todo Feature', () => {
     });
 
     // Wait for loading to complete
-    await expect(page.getByRole('progressbar')).not.toBeVisible();
+    await expect(page.getByRole('progressbar')).toBeHidden();
 
     // Should display empty state message
     await expect(page.getByText(/no todos found/i)).toBeVisible();
@@ -87,14 +87,14 @@ test.describe('List Todo Feature', () => {
 
   test('should display 2 pagination items', async ({ page }) => {
     // Wait for loading to complete
-    await expect(page.getByRole('progressbar')).not.toBeVisible();
+    await expect(page.getByRole('progressbar')).toBeHidden();
 
     // Should display pagination with 2 page buttons
     await expect(page.getByRole('button', { name: '1' })).toBeVisible();
     await expect(page.getByRole('button', { name: '2' })).toBeVisible();
 
     // Should not have a third page button
-    await expect(page.getByRole('button', { name: '3' })).not.toBeVisible();
+    await expect(page.getByRole('button', { name: '3' })).toBeHidden();
 
     // First page should be active/selected
     await expect(page.getByRole('button', { name: '1' })).toHaveAttribute(
@@ -105,20 +105,20 @@ test.describe('List Todo Feature', () => {
 
   test('should display items in page 2 when clicking page 2', async ({ page }) => {
     // Wait for loading to complete
-    await expect(page.getByRole('progressbar')).not.toBeVisible();
+    await expect(page.getByRole('progressbar')).toBeHidden();
 
     // Click on page 2
     await page.getByRole('button', { name: '2' }).click();
 
     // Wait for new data to load
-    await expect(page.getByRole('progressbar')).not.toBeVisible();
+    await expect(page.getByRole('progressbar')).toBeHidden();
 
     // Should display only the 11th item (page 2 content)
     await expect(page.getByText('Todo item 11')).toBeVisible();
 
     // Should not display items from page 1
-    await expect(page.getByText('Todo item 1', { exact: true })).not.toBeVisible();
-    await expect(page.getByText('Todo item 10', { exact: true })).not.toBeVisible();
+    await expect(page.getByText('Todo item 1', { exact: true })).toBeHidden();
+    await expect(page.getByText('Todo item 10', { exact: true })).toBeHidden();
 
     // Page 2 should be active/selected
     await expect(page.getByRole('button', { name: '2' })).toHaveAttribute(
