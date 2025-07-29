@@ -8,7 +8,7 @@ export default function LoadingFallback() {
       alignItems="center"
       justifyContent="center"
       height={200}
-      data-testId="loading-fallback-container"
+      data-testid="loading-fallback-container"
     >
       <CircularProgress />
     </Box>
