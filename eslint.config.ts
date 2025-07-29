@@ -8,19 +8,19 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import storybook from 'eslint-plugin-storybook';
 import testingLibrary from 'eslint-plugin-testing-library';
-import { defineConfig, globalIgnores } from 'eslint/config';
+import { globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import { fileURLToPath } from 'node:url';
 import tseslint from 'typescript-eslint';
 
 const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url));
 
-export default defineConfig([
+export default tseslint.config(
   includeIgnoreFile(gitignorePath, 'Imported `.gitignore` patterns'),
   globalIgnores(['public'], 'Ignore auto-generated code'),
   {
     name: 'Config files',
-    files: ['**/*.js'],
+    files: ['**/*.{ts,js}'],
     languageOptions: {
       globals: globals.node,
     },
@@ -83,4 +83,4 @@ export default defineConfig([
   },
   ...storybook.configs['flat/recommended'],
   eslintConfigPrettier,
-]);
+);
