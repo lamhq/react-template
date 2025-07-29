@@ -9,3 +9,6 @@ const config: StorybookConfig = {
   },
 };
 export default config;
+
+const abc = 5;
+console.log(abc);
