@@ -2,7 +2,7 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "spmeesseman.vscode-taskexplorer",
-    "vitest.explorer"
+    "vitest.explorer",
+    "sanaajani.taskrunnercode"
   ]
 }
